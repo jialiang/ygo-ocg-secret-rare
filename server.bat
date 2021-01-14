@@ -1,0 +1,2 @@
+npx http-server .
+pause
