@@ -260,31 +260,29 @@
         In some devices, you may notice that the size of the card is fairly large. This is because some monitors
         don&#39;t have a high enough pixel density to accurately depict the finer details of the card. If I were to
         scale it down to around the size of an actual Yu-Gi-Oh card which is 8.6cm x 5.9cm (3.25 inch x 2.25 inch), most
-        of the text will become a messy and illegible blob. If you want you can use the browser's zoom function to see
-        for yourself. I figure that a width of 820 physical pixels gives a decent result where the strokes of the
-        characters are crisp and clean. A script resizes the card appropriately on load based on the pixel density of
-        the monitor.
+        of the text will become a messy and illegible blob. I figure that a width of 820 physical pixels gives a decent
+        result where the strokes of the characters are crisp and clean. A script resizes the card appropriately on load
+        based on the pixel density of the monitor.
       </p>
       <p>
         The effect text is actually an SVG image. In a previous version, it consists of real selectable text but in
         devices where the operating system or browser enforces a minimum font size, the text becomes larger than
-        intended and the layout becomes messed up. The ruby text was particularly susceptible to this problem due to its
+        intended and this messes up the layout. The ruby text was particularly susceptible to this problem due to its
         very small font size. It is not possible to scale the rest of the card up so that the smallest font stay above
         the minimum font size. For example, I've read that Chrome in CJK and Thai locale have a default minimum font
         size of 12px. The card would need to be around 4x bigger to ensure that even the smallest text is at least 12px
         big. A trick I tried to bypass this restriction was by multiplying the font size by 4 and then using scaling it
-        to a quarter of its size using CSS transforms. While it works, this causes another problem to occur in Safari.
-        Using this trick in Safari causes the text to become noticibly thinner as well as very noticable and jarring
-        jittering to occur to the text outline during animations. I think it might be due to subpixel antialiasing being
-        disabled on hardware-accelerated text as this problem doesn't occur if I use scale using the zoom CSS property
-        instead. The zoom property has its own set of problems so I can't use that either. At this point, I tried making
-        the entire thing an inline SVG and use SVG's text element to render the text. Unfortunely, an issue occured
-        where the letter spacing is different when displayed in the browser compared to my vector image editing
-        programme, Inkscape. Given more time, I can fix this but at this point I just want to get it over with so I
-        converted the text into paths, embed the SVG image using the img element and just put in the actual text in the
-        img element's alt attribute. The tradeoff from me using this approach is that the text is now no longer
-        user-selectable, I can't take advantage of font hinting so that it scales better at small sizes and the size of
-        the webpage is bigger.
+        down to a quarter of its size using CSS transforms. While this method works, this causes another problem to
+        occur in Safari. Using this trick in Safari causes the text to become noticibly thinner and jarring outline
+        jittering to occur during animations. I think it might be due to subpixel antialiasing being disabled on
+        hardware-accelerated text as this problem doesn't occur if I use scale using the zoom CSS property instead. The
+        zoom property has its own set of problems so I can't use that either. At this point, I tried making the entire
+        thing an inline SVG and use SVG's text element to render the text. Unfortunely, an issue occured where the
+        letter spacing is different when displayed in the browser compared to my vector image editing programme,
+        Inkscape. Given more time, I can fix this but at this point I just want to get it over with so I converted the
+        text into paths, embed the SVG image using the img element and set the actual text as the img element's alt
+        attribute. The tradeoff from me using this approach is that the text is now no longer user-selectable, I can't
+        take advantage of font hinting and the size of the webpage is bigger.
       </p>
       <p>
         On Safari you may encounter a browser bug where the horizontal line of the holofoil stop moving after a hard
@@ -295,8 +293,8 @@
         I've also tested it on monitors with device pixel ratio of 1x, 2x and 3x. It definetely doesn't work on Internet
         Explorer 11. I wouldn't say its particularly performant but it runs at an acceptable framerate on a 2015 MacBook
         Pro and an 2016 Asus Zenfone 3 although expect warm devices and spinning fans. The total page weight on load is
-        around 2.67MB, less when gzipped. I did not bother with responsive images although I did subset the font files
-        and optimize the images.
+        around 2MB gzipped. I did not bother with responsive images but I did subset the font files and optimize the
+        images.
       </p>
 
       <h2 id="design">Design</h2>
@@ -306,7 +304,7 @@
         as well as my own real life secret rare copy as reference. The official proxy is from the
         <a href="https://yu-gi-oh.jp/news_detail.php?page=details&&id=497" target="_blank" rel="noopener noreferrer"
           >Infinity Chasers announcement page</a
-        >. <a href="https://www.gimp.org/" target="_blank" rel="noopener noreferrer">GIMP</a> is used for image editing.
+        >. GIMP is used for image editing.
       </p>
       <p>
         For the card stock, I use
@@ -325,7 +323,7 @@
         notable on the pillars on the left and right of the artwork and also the space left of the stars.
       </p>
       <p>
-        For the artwork, I use the full artwork which I think is created by
+        For the artwork, I use the high resolution full artwork which I think is created by
         <a
           href="https://www.deviantart.com/yugi-master/art/Witchcraft-Master-Verre-FULL-ARTWORK-785468202"
           target="_blank"
@@ -337,6 +335,15 @@
         restore the intensity of the highlights so that the image doesn't look dull and washed-out. For the cutout, I
         increased the brightness, contrast and sharpness of the image to make it standout more. This difference is
         brightness of the background and cutout also produces a mild parallax effect during the animation.
+      </p>
+      <p>
+        The design of this webpage is based on this
+        <a
+          href="https://twitter.com/yugioh_dl_info/status/1306427658838913025"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Madame Verre 9/17 Cute Day Promotional Image</a
+        >.
       </p>
 
       <h2 id="translation">Translation</h2>

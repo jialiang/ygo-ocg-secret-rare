@@ -78,6 +78,7 @@ a {
   padding: 4em 0;
   background: #ccdbf4;
   box-shadow: 0 0 5vmin rgba(0, 0, 0, 0.5);
+  border: 5vmin double white;
 }
 
 ul,
