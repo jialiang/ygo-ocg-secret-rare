@@ -271,18 +271,18 @@
         very small font size. It is not possible to scale the rest of the card up so that the smallest font stay above
         the minimum font size. For example, I've read that Chrome in CJK and Thai locale have a default minimum font
         size of 12px. The card would need to be around 4x bigger to ensure that even the smallest text is at least 12px
-        big. A trick I tried to bypass this restriction was by multiplying the font size by 4 and then using scaling it
-        down to a quarter of its size using CSS transforms. While this method works, this causes another problem to
-        occur in Safari. Using this trick in Safari causes the text to become noticibly thinner and jarring outline
-        jittering to occur during animations. I think it might be due to subpixel antialiasing being disabled on
-        hardware-accelerated text as this problem doesn't occur if I use scale using the zoom CSS property instead. The
-        zoom property has its own set of problems so I can't use that either. At this point, I tried making the entire
-        thing an inline SVG and use SVG's text element to render the text. Unfortunely, an issue occured where the
-        letter spacing is different when displayed in the browser compared to my vector image editing programme,
-        Inkscape. Given more time, I can fix this but at this point I just want to get it over with so I converted the
-        text into paths, embed the SVG image using the img element and set the actual text as the img element's alt
-        attribute. The tradeoff from me using this approach is that the text is now no longer user-selectable, I can't
-        take advantage of font hinting and the size of the webpage is bigger.
+        big. A trick I tried to bypass this restriction was by multiplying the font size by 4 and then scaling it down
+        to a quarter of its size using CSS transforms. While this method works, this causes another problem to occur in
+        Safari. Using this trick in Safari causes the text to become noticibly thinner and jarring outline jittering to
+        occur during animations. I think this might be due to subpixel antialiasing being disabled on
+        hardware-accelerated text as this problem doesn't occur if I scale using the zoom CSS property instead. The zoom
+        property, being non-standard, has its own set of problems so I can't use that either. At this point, I tried
+        making the entire thing an inline SVG and use SVG's text element to render the text. Unfortunely, an issue
+        occured where the letter spacing is different when displayed in the browser compared to my vector image editing
+        programme, Inkscape. Given more time, I can fix this but at this point I just want to get it over with so I
+        converted the text into SVG paths, embed the SVG image using the img element and set the actual text as the img
+        element's alt attribute. The tradeoff from me using this approach is that the text is now no longer
+        user-selectable, I can't take advantage of font hinting and the file size of the webpage is bigger.
       </p>
       <p>
         On Safari you may encounter a browser bug where the horizontal line of the holofoil stop moving after a hard
