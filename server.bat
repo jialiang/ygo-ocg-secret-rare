@@ -1,2 +1,2 @@
-npx http-server .
+npx http-server ./docs
 pause
