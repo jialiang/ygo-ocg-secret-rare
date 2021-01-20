@@ -179,11 +179,13 @@ table td {
 }
 
 .artwork-container {
+  background: black;
   position: absolute;
   top: 18%;
   left: 12%;
   overflow: hidden;
   width: 76.25%;
+  height: calc(var(--card-width) * 0.7625);
 
   isolation: isolate;
 }
@@ -238,7 +240,6 @@ table td {
 .artwork-container .noise {
   -webkit-animation: 4s artwork-fade-full -2s linear infinite;
   animation: 4s artwork-fade-full -2s linear infinite;
-  background: url(noise-625-width.png) 0 0/100% 100% no-repeat;
 }
 
 @-webkit-keyframes artwork-fade-quarter {

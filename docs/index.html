@@ -98,7 +98,10 @@
         <div class="artwork-container">
           <img class="artwork layer-1" src="artwork-full-1250-width.jpg" alt="Madame Verre artwork" />
           <div class="rainbow"></div>
-          <div class="noise"></div>
+          <picture>
+            <source srcset="noise-625-width.webp" type="image/webp" />
+            <img class="noise" src="noise-625-width.png" alt="" />
+          </picture>
           <div class="mask-1">
             <div class="mask-1-1"></div>
             <div class="mask-1-2"></div>
@@ -118,9 +121,21 @@
             </div>
             <div class="mask-2-2"></div>
           </div>
-          <img class="artwork layer-2" src="artwork-cutout-1250-width.png" alt="" />
+          <picture>
+            <source srcset="artwork-cutout-1250-width.webp" type="image/webp" />
+            <img class="artwork layer-2" src="artwork-cutout-1250-width.png" alt="" />
+          </picture>
         </div>
-        <img class="stock" src="stock-820-width.png" alt="" />
+        <img
+          class="stock"
+          style="image-rendering: pixelated; z-index: -1"
+          src="data:image/png;base64,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"
+          alt=""
+        />
+        <picture>
+          <source srcset="stock-820-width.webp" type="image/webp" />
+          <img class="stock" src="stock-820-width.png" alt="" />
+        </picture>
         <span class="name">
           <span class="name-part-1">ウィッ</span>
           <span class="name-part-2">チクラフトマスター</span>
