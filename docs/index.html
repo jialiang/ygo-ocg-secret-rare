@@ -417,9 +417,12 @@
         width: 20%;
         height: 200%;
         content: "";
-        -webkit-animation: 4s artwork-right-left -2s linear alternate infinite, 4s artwork-fade -2s linear infinite;
-        animation: 4s artwork-right-left -2s linear alternate infinite, 4s artwork-fade -2s linear infinite;
-        background: radial-gradient(circle at center, white 45%, rgba(255, 255, 255, 0) 55%) 0 0/2px 3px;
+        -webkit-animation: 4s artwork-right-left -2s linear alternate infinite,
+          4s artwork-fade -2s linear infinite;
+        animation: 4s artwork-right-left -2s linear alternate infinite,
+          4s artwork-fade -2s linear infinite;
+        background: radial-gradient(circle at center, white 45%, rgba(255, 255, 255, 0) 55%) 0 0/2px
+          3px;
       }
 
       .artwork-container .mask-1-1::after,
@@ -432,13 +435,25 @@
           black 67%,
           rgba(255, 255, 255, 0)
         );
-        mask-image: linear-gradient(to right, rgba(255, 255, 255, 0), black 33%, black 67%, rgba(255, 255, 255, 0));
+        mask-image: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0),
+          black 33%,
+          black 67%,
+          rgba(255, 255, 255, 0)
+        );
       }
 
       .artwork-container .mask-2-1-1::after,
       .artwork-container .mask-2-1-2::after,
       .artwork-container .mask-2-1-3::after {
-        background: linear-gradient(to right, white, rgba(255, 255, 255, 0) 33%, rgba(255, 255, 255, 0) 67%, white),
+        background: linear-gradient(
+            to right,
+            white,
+            rgba(255, 255, 255, 0) 33%,
+            rgba(255, 255, 255, 0) 67%,
+            white
+          ),
           radial-gradient(circle at center, black 45%, rgba(255, 255, 255, 0) 55%) 0 0/2px 3px;
       }
 
@@ -476,18 +491,32 @@
         width: 200%;
         height: 20%;
         content: "";
-        -webkit-animation: 4s artwork-bottom-top -2s linear alternate infinite, 4s artwork-fade -2s linear infinite;
-        animation: 4s artwork-bottom-top -2s linear alternate infinite, 4s artwork-fade -2s linear infinite;
-        background: radial-gradient(circle at center, white 45%, rgba(255, 255, 255, 0) 55%) 0 0/2px 3px;
+        -webkit-animation: 4s artwork-bottom-top -2s linear alternate infinite,
+          4s artwork-fade -2s linear infinite;
+        animation: 4s artwork-bottom-top -2s linear alternate infinite,
+          4s artwork-fade -2s linear infinite;
+        background: radial-gradient(circle at center, white 45%, rgba(255, 255, 255, 0) 55%) 0 0/2px
+          3px;
 
-        -webkit-mask-image: linear-gradient(rgba(255, 255, 255, 0), black 33%, black 67%, rgba(255, 255, 255, 0));
-        mask-image: linear-gradient(rgba(255, 255, 255, 0), black 33%, black 67%, rgba(255, 255, 255, 0));
+        -webkit-mask-image: linear-gradient(
+          rgba(255, 255, 255, 0),
+          black 33%,
+          black 67%,
+          rgba(255, 255, 255, 0)
+        );
+        mask-image: linear-gradient(
+          rgba(255, 255, 255, 0),
+          black 33%,
+          black 67%,
+          rgba(255, 255, 255, 0)
+        );
       }
 
       .artwork-container .mask-2-1-4:after,
       .artwork-container .mask-2-1-5:after,
       .artwork-container .mask-2-1-6:after {
-        background: radial-gradient(circle at center, black 45%, rgba(255, 255, 255, 0) 55%) 0 0/2px 3px;
+        background: radial-gradient(circle at center, black 45%, rgba(255, 255, 255, 0) 55%) 0 0/2px
+          3px;
       }
 
       .artwork-container .mask-2 {
@@ -593,8 +622,15 @@
         animation: 4s background-position-move -2s linear alternate infinite;
         white-space: nowrap;
         color: rgba(255, 255, 255, 0);
-        background: linear-gradient(to bottom right, white, #dadada 45%, rgba(255, 255, 255, 0), #dadada 55%, white) 0 0/400%
-            400% no-repeat,
+        background: linear-gradient(
+              to bottom right,
+              white,
+              #dadada 45%,
+              rgba(255, 255, 255, 0),
+              #dadada 55%,
+              white
+            )
+            0 0/400% 400% no-repeat,
           linear-gradient(to right, orange, gold, springgreen, deepskyblue) 0 0/100% 100% no-repeat;
         -webkit-background-clip: text;
         background-clip: text;
@@ -702,10 +738,21 @@
       }
 
       .round-foil .mask-1-1 {
-        background: radial-gradient(circle at center, white 45%, rgba(80, 80, 80, 0) 55%) 0 0/2px 3px;
+        background: radial-gradient(circle at center, white 45%, rgba(80, 80, 80, 0) 55%) 0 0/2px
+          3px;
 
-        -webkit-mask-image: linear-gradient(to right, rgba(255, 255, 255, 0), black, rgba(255, 255, 255, 0));
-        mask-image: linear-gradient(to right, rgba(255, 255, 255, 0), black, rgba(255, 255, 255, 0));
+        -webkit-mask-image: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0),
+          black,
+          rgba(255, 255, 255, 0)
+        );
+        mask-image: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0),
+          black,
+          rgba(255, 255, 255, 0)
+        );
       }
 
       .round-foil .mask-2 {
@@ -723,7 +770,14 @@
 
       .round-foil .mask-2-2 {
         border-radius: 100%;
-        background: linear-gradient(to bottom right, tomato, gold, springgreen, dodgerblue, blueviolet);
+        background: linear-gradient(
+          to bottom right,
+          tomato,
+          gold,
+          springgreen,
+          dodgerblue,
+          blueviolet
+        );
 
         mix-blend-mode: lighten;
       }
@@ -1192,7 +1246,11 @@
       <div class="width-setter"></div>
       <div class="card">
         <div class="artwork-container">
-          <img class="artwork layer-1" src="artwork-full-1250-width.jpg" alt="Madame Verre artwork" />
+          <img
+            class="artwork layer-1"
+            src="artwork-full-1250-width.jpg"
+            alt="Madame Verre artwork"
+          />
           <div class="rainbow"></div>
           <picture>
             <source srcset="noise-625-width.webp" type="image/webp" />
@@ -1364,56 +1422,74 @@
 
       <h2 id="technical">Technical</h2>
       <p>
-        The holofoil effect is done using a technique involving mix-blend-move as described by Jonny Scholes in
-        <a href="https://codepen.io/jonnyscholes/post/css-blend-modes" target="_blank" rel="noopener noreferrer"
+        The holofoil effect is done using a technique involving mix-blend-move as described by Jonny
+        Scholes in
+        <a
+          href="https://codepen.io/jonnyscholes/post/css-blend-modes"
+          target="_blank"
+          rel="noopener noreferrer"
           >Fudging masks using CSS blend modes</a
         >
-        along with the mask-image property. The holographic rainbow card name effect is done using the background-clip
-        method described in the CSS-Tricks article
-        <a href="https://css-tricks.com/how-to-do-knockout-text/" target="_blank" rel="noopener noreferrer"
+        along with the mask-image property. The holographic rainbow card name effect is done using
+        the background-clip method described in the CSS-Tricks article
+        <a
+          href="https://css-tricks.com/how-to-do-knockout-text/"
+          target="_blank"
+          rel="noopener noreferrer"
           >How To Do Knockout Text</a
         >
         and animating the background-position.
       </p>
       <p>
-        In some devices, you may notice that the size of the card is fairly large. This is because some monitors
-        don&#39;t have a high enough pixel density to accurately depict the finer details of the card. If I were to
-        scale it down to around the size of an actual Yu-Gi-Oh card which is 8.6cm x 5.9cm (3.25 inch x 2.25 inch), most
-        of the text will become a messy and illegible blob. I figure that a width of 820 physical pixels gives a decent
-        result where the strokes of the characters are crisp and clean. A script resizes the card appropriately on load
-        based on the pixel density of the monitor.
+        In some devices, you may notice that the size of the card is fairly large. This is because
+        some monitors don&#39;t have a high enough pixel density to accurately depict the finer
+        details of the card. If I were to scale it down to around the size of an actual Yu-Gi-Oh
+        card which is 8.6cm x 5.9cm (3.25 inch x 2.25 inch), most of the text will become a messy
+        and illegible blob. I figure that a width of 820 physical pixels gives a decent result where
+        the strokes of the characters are crisp and clean. A script resizes the card appropriately
+        on load based on the pixel density of the monitor.
       </p>
       <p>
-        The effect text is actually an SVG image. In a previous version, it consists of real selectable text but in
-        devices where the operating system or browser enforces a minimum font size, the text becomes larger than
-        intended and this messes up the layout. The ruby text was particularly susceptible to this problem due to its
-        very small font size. It is not possible to scale the rest of the card up so that the smallest font stay above
-        the minimum font size. For example, I've read that Chrome in CJK and Thai locale have a default minimum font
-        size of 12px. The card would need to be around 4x bigger to ensure that even the smallest text is at least 12px
-        big. A trick I tried to bypass this restriction was by multiplying the font size by 4 and then scaling it down
-        to a quarter of its size using CSS transforms. While this method works, this causes another problem to occur in
-        Safari. Using this trick in Safari causes the text to become noticibly thinner and jarring outline jittering to
-        occur during animations. I think this might be due to subpixel antialiasing being disabled on
-        hardware-accelerated text as this problem doesn't occur if I scale using the zoom CSS property instead. The zoom
-        property, being non-standard, has its own set of problems so I can't use that either. At this point, I tried
-        making the entire thing an inline SVG and use SVG's text element to render the text. Unfortunely, an issue
-        occured where the letter spacing is different when displayed in the browser compared to my vector image editing
-        programme, Inkscape. Given more time, I can fix this but at this point I just want to get it over with so I
-        converted the text into SVG paths, embed the SVG image using the img element and set the actual text as the img
-        element's alt attribute. The tradeoff from me using this approach is that the text is now no longer
-        user-selectable, I can't take advantage of font hinting and the file size of the webpage is bigger.
+        The effect text is actually an SVG image. In a previous version, it consists of real
+        selectable text but in devices where the operating system or browser enforces a minimum font
+        size, the text becomes larger than intended and this messes up the layout. The ruby text was
+        particularly susceptible to this problem due to its very small font size. It is not possible
+        to scale the rest of the card up so that the smallest font stays above the minimum font
+        size. For example, I've read that Chrome in CJK and Thai locale have a default minimum font
+        size of 12px. The card would need to be around 4x bigger to ensure that even the smallest
+        text is at least 12px big.
       </p>
       <p>
-        On Safari you may encounter a browser bug where the horizontal line of the holofoil stop moving after a hard
-        refresh, just refresh the page again and it should return to normal.
+        A trick I tried to bypass this restriction was by multiplying the font size by 4 and then
+        scaling it down to a quarter of its size using CSS transforms. While this method works, this
+        causes another problem to occur in Safari. Using this trick in Safari causes the text to
+        become noticeably thinner and jarring outline jittering to occur during animations. I think
+        this might be due to subpixel antialiasing being disabled on hardware-accelerated text as
+        this problem doesn't occur if I scale using the zoom CSS property instead. The zoom
+        property, being non-standard, has its own set of problems so I can't use that either.
       </p>
       <p>
-        I've tested this project in Firefox and Chrome on Windows 10 and Android, and Chrome and Safari on MacOS Mojave.
-        I've also tested it on monitors with device pixel ratio of 1x, 2x and 3x. It definetely doesn't work on Internet
-        Explorer 11. I wouldn't say its particularly performant but it runs at an acceptable framerate on a 2015 MacBook
-        Pro and an 2016 Asus Zenfone 3 although expect warm devices and spinning fans. The total page weight on load is
-        around 2MB gzipped. I did not bother with responsive images but I did subset the font files and optimize the
-        images.
+        Since the previous idea failed, I tried making the entire thing an inline SVG and using
+        SVG's text element to render the text. Unfortunately, an issue occurred where the letter
+        spacing is different when displayed in the browser compared to my vector image editing
+        programme, Inkscape. Given more time, I can fix this but at this point I just want to get it
+        over with. Thus I converted the text into SVG paths, embed the SVG image using the img
+        element and set the actual text as the img element's alt attribute. The tradeoff with using
+        this approach is that the text is now no longer user-selectable, I can't take advantage of
+        font hinting and the file size of the webpage is bigger.
+      </p>
+      <p>
+        On Safari you may encounter a browser bug where the horizontal line of the holofoil stops
+        moving after a hard refresh, just refresh the page again and it should return to normal.
+      </p>
+      <p>
+        I've tested this project in Firefox and Chrome on Windows 10 and Android, and Chrome and
+        Safari on MacOS Mojave. I've also tested it on monitors with device pixel ratio of 1x, 2x
+        and 3x. It definitely doesn't work on Internet Explorer 11. I wouldn't say it's particularly
+        performant but it runs at an acceptable frame rate on a 2015 MacBook Pro and an 2016 Asus
+        Zenfone 3 although expect warm devices and spinning fans. The total page weight on load is
+        around 2MB gzipped. I did not bother with responsive images but I did subset the font files
+        and optimize the images.
       </p>
 
       <h2 id="design">Design</h2>
@@ -1421,25 +1497,36 @@
         I use the
         <a href="official-proxy.png" target="_blank" rel="noopener noreferrer">official proxy</a>
         as well as my own real life secret rare copy as reference. The official proxy is from the
-        <a href="https://yu-gi-oh.jp/news_detail.php?page=details&&id=497" target="_blank" rel="noopener noreferrer"
+        <a
+          href="https://yu-gi-oh.jp/news_detail.php?page=details&&id=497"
+          target="_blank"
+          rel="noopener noreferrer"
           >Infinity Chasers announcement page</a
         >. GIMP is used for image editing.
       </p>
       <p>
         For the card stock, I use
-        <a href="https://www.deviantart.com/icycatelf" target="_blank" rel="noopener noreferrer">Icycatelf&#39;s</a>
+        <a href="https://www.deviantart.com/icycatelf" target="_blank" rel="noopener noreferrer"
+          >Icycatelf&#39;s</a
+        >
         <a
           href="https://www.deviantart.com/icycatelf/art/YGO-Series-10-Master-PSD-676448168"
           target="_blank"
           rel="noopener noreferrer"
           >YGO Series 10 Master PSD</a
         >
-        as my base. I adjusted the brightness, contrast and saturation to match the colors in the official proxy. Next I
-        scaled up the resolution of the officialy proxy using
-        <a href="https://github.com/lltcggie/waifu2x-caffe" target="_blank" rel="noopener noreferrer">waifu2x-caffe</a>
-        and transplanted parts of it onto my base card stock to make it more convincing. By transplant, I basically
-        copy-pasted parts of it and use the smudge tool to blur the edges of the transplanted section. This is most
-        notable on the pillars on the left and right of the artwork and also the space left of the stars.
+        as my base. I adjusted the brightness, contrast and saturation to match the colors in the
+        official proxy. Next I scaled up the resolution of the official proxy using
+        <a
+          href="https://github.com/lltcggie/waifu2x-caffe"
+          target="_blank"
+          rel="noopener noreferrer"
+          >waifu2x-caffe</a
+        >
+        and transplanted parts of it onto my base cardstock to make it more convincing. By
+        transplant, I basically copy-pasted parts of it and use the smudge tool to blur the edges of
+        the transplanted section. This is most notable on the pillars on the left and right of the
+        artwork and also the space left of the stars.
       </p>
       <p>
         For the artwork, I use the high resolution full artwork which I think is created by
@@ -1448,12 +1535,14 @@
           target="_blank"
           rel="noopener noreferrer"
           >Yugi-Master</a
-        >, not too sure on who's the original artist. Part of the artwork is affected by the holofoil while the other is
-        not so I have to seperate the two parts. I decrease the brightness and increase the contrast of the background.
-        The former is to create a darker image so that the shiny parts will stand out more while the latter is to
-        restore the intensity of the highlights so that the image doesn't look dull and washed-out. For the cutout, I
-        increased the brightness, contrast and sharpness of the image to make it standout more. This difference is
-        brightness of the background and cutout also produces a mild parallax effect during the animation.
+        >, not too sure on who's the original artist. Part of the artwork is affected by the
+        holofoil while the other is not so I have to separate the two parts. I decreased the
+        brightness and increased the contrast of the background. The former is to create a darker
+        image so that the shiny parts will stand out more while the latter is to restore the
+        intensity of the highlights so that the image doesn't look dull and washed-out. For the
+        cutout, I increased the brightness, contrast and sharpness of the image to make it stand out
+        more. This difference in brightness of the background and cutout also produces a mild
+        parallax effect during the animation.
       </p>
       <p>
         The design of this webpage is based on this
@@ -1492,11 +1581,13 @@
           <tr>
             <th>Effect</th>
             <td>
-              During damage calculation, if your Spellcaster monster battles an opponent&#39;s monster (Quick Effect):
-              You can reveal any number of Spells with different names in your hand, and if you do, your battling
-              monster gains 1000 ATK/DEF for each card revealed, until the end of this turn. (Quick Effect): You can
-              discard 1 Spell; negate the effects of all face-up monsters your opponent currently controls, until the
-              end of this turn. You can only use each effect of &quot;Witchcrafter Madame Verre&quot; once per turn.
+              During damage calculation, if your Spellcaster monster battles an opponent&#39;s
+              monster (Quick Effect): You can reveal any number of Spells with different names in
+              your hand, and if you do, your battling monster gains 1000 ATK/DEF for each card
+              revealed, until the end of this turn. (Quick Effect): You can discard 1 Spell; negate
+              the effects of all face-up monsters your opponent currently controls, until the end of
+              this turn. You can only use each effect of &quot;Witchcrafter Madame Verre&quot; once
+              per turn.
             </td>
           </tr>
           <tr>
@@ -1528,7 +1619,9 @@
       </ul>
       <p>
         The card stock and star symbol is from
-        <a href="https://www.deviantart.com/icycatelf" target="_blank" rel="noopener noreferrer">Icycatelf&#39;s</a>
+        <a href="https://www.deviantart.com/icycatelf" target="_blank" rel="noopener noreferrer"
+          >Icycatelf&#39;s</a
+        >
         <a
           href="https://www.deviantart.com/icycatelf/art/YGO-Series-10-Master-PSD-676448168"
           target="_blank"
@@ -1538,11 +1631,18 @@
       </p>
       <p>
         The attribute symbol is made by
-        <a href="https://yugipedia.com/wiki/Special:Contributions/Falzar_FZ" target="_blank" rel="noopener noreferrer"
+        <a
+          href="https://yugipedia.com/wiki/Special:Contributions/Falzar_FZ"
+          target="_blank"
+          rel="noopener noreferrer"
           >Falzar FZ</a
         >
         and sourced from
-        <a href="https://yugipedia.com/wiki/File:LIGHT.svg" target="_blank" rel="noopener noreferrer">Yugipedia wiki</a
+        <a
+          href="https://yugipedia.com/wiki/File:LIGHT.svg"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Yugipedia wiki</a
         >. Modified it from the original.
       </p>
     </div>
