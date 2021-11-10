@@ -3,18 +3,30 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+
     <title>Yu-Gi-Oh OCG Secret Rare Effect made with CSS</title>
+
     <meta name="description" content="" />
+
     <link rel="icon" type="image/png" href="https://jialiang.github.io/favicon.png" />
     <link rel="canonical" href="https://jialiang.github.io/ygo-ocg-secret-rare/" />
+
     <meta name="robots" content="noimageindex" />
     <meta name="theme-color" content="#000" />
     <meta name="author" content="Jia Liang, hojialiang@yahoo.com" />
+
+    <link rel="preload" href="StoneSerif-Semibold.woff2" as="font" type="font/woff2" />
+    <link rel="preload" href="Yu-Gi-Oh!-DFG-Leisho-4-Bold.woff2" as="font" type="font/woff2" />
+    <link rel="preload" href="RodinPro-M.woff2" as="font" type="font/woff2" />
+    <link rel="preload" href="Yu-Gi-Oh!-Matrix-Small-Caps-2.woff2" as="font" type="font/woff2" />
+    <link rel="preload" href="Lobster-Regular.woff2" as="font" type="font/woff2" />
+    <link rel="preload" href="Roboto-Regular.woff2" as="font" type="font/woff2" />
+    <link rel="preload" href="Roboto-Bold.woff2" as="font" type="font/woff2" />
+
     <style>
       @font-face {
         font-family: "StoneSerif-Semibold";
         font-weight: 400;
-        font-display: swap;
         font-style: normal;
 
         src: url("StoneSerif-Semibold.woff2") format("woff2");
@@ -23,7 +35,6 @@
       @font-face {
         font-family: "Yu-Gi-Oh! DFG Leisho 4";
         font-weight: 700;
-        font-display: swap;
         font-style: normal;
 
         src: url("Yu-Gi-Oh!-DFG-Leisho-4-Bold.woff2") format("woff2");
@@ -32,7 +43,6 @@
       @font-face {
         font-family: "RodinPro-M";
         font-weight: 400;
-        font-display: swap;
         font-style: normal;
 
         src: url("RodinPro-M.woff2") format("woff2");
@@ -41,7 +51,6 @@
       @font-face {
         font-family: "Yu-Gi-Oh! Matrix Small Caps 2";
         font-weight: 400;
-        font-display: swap;
         font-style: normal;
 
         src: url("Yu-Gi-Oh!-Matrix-Small-Caps-2.woff2") format("woff2");
@@ -50,7 +59,6 @@
       @font-face {
         font-family: "Lobster";
         font-weight: 400;
-        font-display: swap;
         font-style: normal;
 
         src: url("Lobster-Regular.woff2") format("woff2");
@@ -59,7 +67,6 @@
       @font-face {
         font-family: "Roboto";
         font-weight: 400;
-        font-display: swap;
         font-style: normal;
 
         src: url("Roboto-Regular.woff2") format("woff2");
@@ -68,7 +75,6 @@
       @font-face {
         font-family: "Roboto";
         font-weight: 700;
-        font-display: swap;
         font-style: normal;
 
         src: url("Roboto-Bold.woff2") format("woff2");
@@ -112,7 +118,7 @@
         font-weight: 400;
         line-height: 1.15;
         width: 8em;
-        margin: 1em auto 0.25em auto;
+        margin: 1em auto;
         padding: 0.25em 0.5em;
         text-align: center;
         color: #111;
@@ -152,9 +158,9 @@
         display: block;
         margin-top: 4em;
         padding: 4em 0;
+        border: 5vmin double white;
         background: #ccdbf4;
         box-shadow: 0 0 5vmin rgba(0, 0, 0, 0.5);
-        border: 5vmin double white;
       }
 
       ul,
@@ -255,13 +261,13 @@
       }
 
       .artwork-container {
-        background: black;
         position: absolute;
         top: 18%;
         left: 12%;
         overflow: hidden;
         width: 76.25%;
         height: calc(var(--card-width) * 0.7625);
+        background: black;
 
         isolation: isolate;
       }
@@ -1241,7 +1247,6 @@
       made with CSS<br />
       feat. the Smug Loli
     </h1>
-    <h2>The Result:</h2>
     <div class="card-container notranslate" translate="no" lang="ja">
       <div class="width-setter"></div>
       <div class="card">
