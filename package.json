@@ -1,0 +1,42 @@
+{
+  "name": "ygo-ocg-secret-rare",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "watch": "npx nodemon --watch index.js --watch ./src --watch ./static --ext *",
+    "serve": "node http-server.js",
+    "build": "node index.js",
+    "lint": "npx eslint . && npx stylelint **/*.scss --fix && npx prettier . --write"
+  },
+  "dependencies": {
+    "@csstools/selector-specificity": "^5.0.0",
+    "autoprefixer": "^10.4.21",
+    "css-select": "^5.1.0",
+    "html-minifier-terser": "^7.2.0",
+    "htmlparser2": "^10.0.0",
+    "marked": "^15.0.7",
+    "marked-gfm-heading-id": "^4.1.1",
+    "mime": "^4.0.6",
+    "nodemon": "^3.1.9",
+    "postcss": "^8.5.3",
+    "postcss-scss": "^4.0.9",
+    "postcss-selector-parser": "^7.1.0",
+    "sass-embedded": "^1.85.1",
+    "ygo-ocg-secret-rare": "file:"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.0",
+    "@eslint/js": "^9.22.0",
+    "browserslist-config-baseline": "^0.2.0",
+    "eslint": "^9.22.0",
+    "globals": "^16.0.0",
+    "prettier": "^3.5.3",
+    "prettier-plugin-css-order": "^2.1.2",
+    "stylelint": "^16.17.0",
+    "stylelint-config-standard-scss": "^14.0.0",
+    "stylelint-no-unsupported-browser-features": "^8.0.4"
+  },
+  "browserslist": [
+    "extends browserslist-config-baseline"
+  ]
+}

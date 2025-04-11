@@ -1,0 +1,289 @@
+@use "sass:math";
+
+@function px-to-em($px) {
+  $em: math.div($px, 16) * 1em;
+  @return math.div(math.round($em * 100000), 100000);
+}
+
+$null: transparent;
+$text-contain: layout style paint;
+$border-radius: px-to-em(12);
+$card-width: px-to-em(354);
+$card-height: px-to-em(516);
+
+.card-container {
+  box-sizing: border-box;
+  contain: strict;
+  margin: auto;
+  padding: 4em 0 3em;
+  width: 100%;
+  height: px-to-em(628);
+  overflow: auto hidden;
+
+  figcaption {
+    font-size: 0;
+  }
+}
+
+.touchpad {
+  transform: scale3d(0.8, 0.8, 1);
+  transform-origin: center top;
+  perspective: 500px;
+  margin: auto;
+  width: $card-width;
+  height: $card-height;
+  font-size: 1.25rem;
+}
+
+.card {
+  position: relative;
+  filter: saturate(1.1);
+  transition:
+    1s transform,
+    1s opacity,
+    1s filter,
+    1s box-shadow,
+    1s background-position;
+  will-change: transform;
+  contain: strict;
+  box-shadow: 0 0 1em rgba(#000, 0.5);
+  border-radius: $border-radius;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  --x: 1px;
+  --y: 1px;
+  --o: 0.01;
+  --rot-x: 0deg;
+  --rot-y: 0deg;
+
+  &.mouseover {
+    transform: rotateX(var(--rot-x)) rotateY(var(--rot-y));
+    transition: none;
+    box-shadow: calc(var(--x) * 0.05) calc(var(--y) * 0.05) 1em rgba(#000, 0.33);
+
+    .dim-more {
+      filter: brightness(0.7) contrast(1.15);
+    }
+
+    .dim {
+      filter: brightness(0.825) saturate(1.1);
+    }
+
+    .dim-less {
+      filter: brightness(0.9) contrast(1.05);
+    }
+  }
+
+  * {
+    transition: inherit;
+    contain: strict;
+  }
+}
+
+.stock {
+  position: absolute;
+  inset: 0;
+  border-radius: $border-radius;
+}
+
+.name {
+  position: absolute;
+  top: px-to-em(30);
+  left: px-to-em(32);
+  width: px-to-em(259);
+  height: px-to-em(20);
+}
+
+.attribute {
+  position: absolute;
+  top: px-to-em(24);
+  left: px-to-em(296);
+  border-radius: 100%;
+  width: px-to-em(32);
+  height: px-to-em(32);
+}
+
+.stars {
+  display: flex;
+  position: absolute;
+  top: px-to-em(63);
+  left: px-to-em(131);
+  justify-content: space-between;
+  width: px-to-em(186);
+  height: px-to-em(22);
+  white-space: nowrap;
+
+  .star {
+    width: px-to-em(22);
+    height: px-to-em(22);
+  }
+}
+
+.artwork,
+.cutout {
+  position: absolute;
+  top: px-to-em(93);
+  left: px-to-em(42);
+  width: px-to-em(270);
+  height: px-to-em(270);
+}
+
+.artwork {
+  z-index: -1;
+}
+
+.cutout {
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+  mask: url("./images/optimized/artwork-mask.png") 0 0 / 100% 100%;
+  pointer-events: none;
+}
+
+.holo {
+  position: absolute;
+  opacity: var(--o);
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+  mix-blend-mode: color-dodge;
+  will-change: opacity;
+  inset: 0;
+  border-radius: $border-radius;
+  pointer-events: none;
+
+  $grid-x1: calc(var(--x) * -0.2);
+  $grid-x2: calc(var(--x) * -0.4);
+
+  $grid-y1: calc(var(--y) * -0.2);
+
+  $grid:
+    linear-gradient($null 40%, #fff 49%, #fff 51%, $null 60%) 0 $grid-y1 / 100% 7.5em,
+    linear-gradient(90deg, $null 50%, #fff 59%, #fff 61%, $null 70%) $grid-x1 0 / 7.6em 100%,
+    linear-gradient(90deg, $null 55%, #fff, $null 65%) $grid-x2 0 / 7.5em 100%;
+
+  $glitter: url("./images/glitter.png") 0 0 / 100% 100%;
+
+  $area: url("./images/holofoil-mask.svg") 0 0 / 100% 100%;
+
+  $texture:
+    linear-gradient($null, rgba(#000, 0.75), $null) 0 0 / 100% 3px,
+    radial-gradient($null, rgba(#000, 0.5)) 0 0 / 2px 2px;
+
+  $rainbow: repeating-linear-gradient(
+      30deg,
+      rgb(255, 120, 0),
+      rgb(255, 120, 0),
+      rgb(255, 255, 0),
+      rgb(0, 255, 0),
+      rgb(0, 255, 255),
+      rgb(0, 120, 255),
+      rgb(0, 255, 255),
+      rgb(0, 255, 0),
+      rgb(255, 255, 0),
+      rgb(255, 120, 0) 30em
+    )
+    calc(-#{$card-width} + var(--x) * -2) calc(-#{$card-height} + var(--y) * -2) / 300% 300%
+    no-repeat;
+
+  background: $rainbow, $texture, $glitter, $area, $grid, #1a1a1a;
+  background-blend-mode: color, normal, normal, normal, normal, normal, normal, normal, normal;
+}
+
+.number {
+  position: absolute;
+  top: px-to-em(370);
+  left: px-to-em(261);
+  contain: $text-contain;
+
+  span {
+    vertical-align: top;
+    font-size: px-to-em(10.5);
+    font-family: "Stone Serif", serif;
+  }
+}
+
+.description {
+  position: absolute;
+  top: px-to-em(387);
+  left: px-to-em(28);
+  width: px-to-em(298);
+  height: px-to-em(82);
+}
+
+.atk-def {
+  display: flex;
+  position: absolute;
+  top: px-to-em(466);
+  left: px-to-em(188);
+  gap: 0.5em;
+  contain: $text-contain;
+
+  div {
+    contain: $text-contain;
+    font-size: px-to-em(20.5);
+    font-family: "Yu-Gi-Oh! Matrix Small Caps 2", serif;
+    letter-spacing: px-to-em(0.3);
+  }
+}
+
+.passcode {
+  position: absolute;
+  top: px-to-em(492);
+  left: px-to-em(23);
+  contain: $text-contain;
+
+  span {
+    vertical-align: top;
+    font-size: px-to-em(9);
+    font-family: "Stone Serif", serif;
+    letter-spacing: px-to-em(0.3);
+  }
+}
+
+.copyright {
+  position: absolute;
+  top: px-to-em(492);
+  left: px-to-em(189);
+  width: px-to-em(131);
+  height: px-to-em(9);
+}
+
+.hologram {
+  position: absolute;
+  top: px-to-em(486);
+  left: px-to-em(325);
+  width: px-to-em(18);
+  height: px-to-em(18);
+}
+
+.diffuse-reflection,
+.specular-reflection {
+  position: absolute;
+  opacity: calc(var(--o) * 10);
+  inset: 0;
+  border-radius: $border-radius;
+  background-position: calc(50% + var(--x)) calc(50% + var(--y)) !important;
+  pointer-events: none;
+}
+
+.diffuse-reflection {
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+  mix-blend-mode: plus-lighter;
+  background: radial-gradient(
+      farthest-corner circle at center,
+      rgba(#fff, 0.225) 25%,
+      rgba(#fff, 0) 50%
+    )
+    no-repeat;
+}
+
+.specular-reflection {
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+  mask:
+    url("./images/name.svg") #{px-to-em(32)} #{px-to-em(30)} / #{px-to-em(259)} auto no-repeat,
+    url("./images/hologram.png") #{px-to-em(325)} #{px-to-em(486)} / #{px-to-em(18)} auto no-repeat;
+  background: radial-gradient(farthest-corner circle at center, #fff 50%, $null 75%) no-repeat;
+
+  + .hologram {
+    opacity: 0.5;
+  }
+}

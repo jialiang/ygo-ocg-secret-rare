@@ -1,0 +1,15 @@
+{
+  "files.exclude": { "docs": true },
+  "stylelint.validate": ["css", "scss"],
+  "cSpell.files": ["**/*.md"],
+  "cSpell.words": [
+    "Alixsep's",
+    "Falzar",
+    "Fontworks",
+    "Goellner's",
+    "Icycatelf's",
+    "Inkscape",
+    "SSIM",
+    "Verre"
+  ]
+}

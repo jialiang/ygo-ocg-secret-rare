@@ -1,0 +1,103 @@
+.text {
+  margin: 1rem auto 6rem;
+  box-shadow: 0 0 1rem rgba(black, 0.15);
+  border-radius: 4rem;
+  background: white;
+  padding: 4rem 2rem 8rem;
+  max-width: 40rem;
+  color: #1c1c1c;
+  font-size: 1.25rem;
+  line-height: 1.5;
+
+  @media (max-width: 40rem) {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  nav {
+    margin: 4rem 0 0;
+
+    > ol {
+      padding-left: 1.5rem;
+    }
+  }
+
+  h1,
+  h2,
+  strong {
+    color: black;
+  }
+
+  h1,
+  h2 {
+    line-height: 1.125;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 4.5rem;
+    font-family: "Lobster Two", cursive;
+    text-align: center;
+
+    @media (max-width: 32.5rem) {
+      font-size: 4rem;
+    }
+
+    @media (max-width: 30rem) {
+      font-size: 3.5rem;
+    }
+
+    @media (max-width: 26.25rem) {
+      font-size: 3rem;
+    }
+  }
+
+  h2 {
+    margin: 4rem 0 -1rem;
+    font-size: 2rem;
+  }
+
+  p {
+    margin: 2rem 0 0;
+
+    + ul,
+    + ol {
+      margin-top: 0.5rem;
+    }
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ul,
+  ol {
+    margin: 2rem 0 0;
+
+    li + li {
+      margin-top: 0.5rem;
+    }
+  }
+
+  a {
+    outline: none !important;
+    color: #5263ff;
+    font-weight: 500;
+    text-decoration: none;
+
+    &:hover {
+      color: #db00ac;
+    }
+
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+      text-decoration: 2px solid underline;
+    }
+
+    &:focus:not(:hover, :focus-visible) {
+      text-decoration: none;
+    }
+  }
+}

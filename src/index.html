@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Yu-Gi-Oh! OCG Secret Rare Effect with CSS</title>
+    <meta name="description" content="Yu-Gi-Oh! OCG Secret Rare Effect with CSS" />
+    <meta name="author" content="Jia Liang, hojialiang@yahoo.com" />
+
+    <link rel="icon" type="image/x-icon" href="https://jialiang.github.io/favicon.png" />
+    <link rel="canonical" href="https://jialiang.github.io/ygo-ocg-secret-rare/" />
+
+    <meta property="og:title" content="Yu-Gi-Oh! OCG Secret Rare Effect with CSS" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://jialiang.github.io/ygo-ocg-secret-rare/" />
+    <meta
+      property="og:image"
+      content="https://jialiang.github.io/ygo-ocg-secret-rare/preview.png" />
+
+    <style>
+      /* index.scss */
+    </style>
+  </head>
+  <body>
+    <div class="border">
+      <div class="corner top-left"></div>
+      <div class="corner top-right"></div>
+      <div class="corner bottom-left"></div>
+      <div class="corner bottom-right"></div>
+      <div class="vertical left"></div>
+      <div class="vertical right"></div>
+      <div class="horizontal top"></div>
+      <div class="horizontal bottom"></div>
+    </div>
+
+    <div class="particles">
+      <picture>
+        <source srcset="./images/optimized/particles.avif" type="image/avif" />
+        <source srcset="./images/optimized/particles.webp" type="image/webp" />
+        <img src="./images/particles.png" alt="" fetchpriority="low" />
+      </picture>
+      <picture>
+        <source srcset="./images/optimized/particles.avif" type="image/avif" />
+        <source srcset="./images/optimized/particles.webp" type="image/webp" />
+        <img src="./images/particles.png" alt="" fetchpriority="low" />
+      </picture>
+      <picture>
+        <source srcset="./images/optimized/particles.avif" type="image/avif" />
+        <source srcset="./images/optimized/particles.webp" type="image/webp" />
+        <img src="./images/particles.png" alt="" fetchpriority="low" />
+      </picture>
+    </div>
+
+    <figure class="card-container">
+      <figcaption>Japanese "Witchcrafter Madame Verre" Yu-gi-oh! OCG card.</figcaption>
+
+      <div class="touchpad">
+        <div class="card" lang="ja">
+          <picture>
+            <source srcset="./images/optimized/stock.avif" type="image/avif" />
+            <source srcset="./images/optimized/stock.webp" type="image/webp" />
+            <img
+              class="stock dim"
+              src="./images/optimized/stock.png"
+              alt=""
+              loading="eager"
+              fetchpriority="high" />
+          </picture>
+
+          <div class="name dim-more notranslate" translate="no">
+            <img src="./images/name.svg" alt="ウィッチクラフトマスター・ヴェール" />
+          </div>
+
+          <div class="attribute">
+            <img class="dim" src="./images/light.svg" alt="光属性" />
+          </div>
+
+          <div class="stars" role="img" aria-label="レベル 8">
+            <div class="star">
+              <img class="dim" src="./images/star.png" alt="" />
+            </div>
+            <div class="star">
+              <img class="dim" src="./images/star.png" alt="" />
+            </div>
+            <div class="star">
+              <img class="dim" src="./images/star.png" alt="" />
+            </div>
+            <div class="star">
+              <img class="dim" src="./images/star.png" alt="" />
+            </div>
+            <div class="star">
+              <img class="dim" src="./images/star.png" alt="" />
+            </div>
+            <div class="star">
+              <img class="dim" src="./images/star.png" alt="" />
+            </div>
+            <div class="star">
+              <img class="dim" src="./images/star.png" alt="" />
+            </div>
+            <div class="star">
+              <img class="dim" src="./images/star.png" alt="" />
+            </div>
+          </div>
+
+          <div class="artwork dim-more">
+            <picture>
+              <source srcset="./images/optimized/artwork.avif" type="image/avif" />
+              <source srcset="./images/optimized/artwork.webp" type="image/webp" />
+              <img
+                src="./images/optimized/artwork.png"
+                alt="カードアートワーク：毛皮をアクセントにした白いドレスを着た青ピンクのロングヘアの自信に満ちた少女が、魔法の杖を持ち、クリスタルの玉座に座っている。"
+                loading="eager"
+                fetchpriority="high" />
+            </picture>
+          </div>
+
+          <div class="holo"></div>
+
+          <div class="cutout dim-less">
+            <picture>
+              <source srcset="./images/optimized/artwork.avif" type="image/avif" />
+              <source srcset="./images/optimized/artwork.webp" type="image/webp" />
+              <source srcset="./images/optimized/artwork.png" type="image/png" />
+              <img src="./images/optimized/artwork.png" alt="" />
+            </picture>
+          </div>
+
+          <div class="number"><span>DBIC-JP019</span></div>
+
+          <div class="description">
+            <img
+              src="./images/description.svg"
+              alt="【魔法使い族／効果】このカード名の①②の効果はそれぞれ１ターンに１度しか使用できない。①：自分の魔法使い族モンスターが相手モンスターと戦闘を行うダメージ計算時に発動できる。カード名が異なる手札の魔法カードを任意の数だけ相手に見せ、その自分のモンスターの攻撃力・守備力をターン終了時まで、見せた数×１０００アップする。②：自分・相手ターンに、手札から魔法カード１枚を捨てて発動できる。相手フィールドの全ての表側表示モンスターの効果をターン終了時まで無効にする。"
+              fetchpriority="low" />
+          </div>
+
+          <div class="atk-def">
+            <div>ATK/1000</div>
+            <div>DEF/2800</div>
+          </div>
+
+          <div class="passcode"><span>21522601</span></div>
+
+          <div class="copyright">
+            <img src="./images/copyright.svg" alt="© 高橋和希 スタジオ・ダイス／集英社" />
+          </div>
+
+          <div class="hologram">
+            <img src="./images/hologram.png" alt="偽造防止ホログラム" />
+          </div>
+
+          <div class="diffuse-reflection"></div>
+
+          <div class="specular-reflection"></div>
+
+          <div class="hologram">
+            <img src="./images/hologram.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </figure>
+
+    <article class="text">
+      <!-- copy.html -->
+    </article>
+
+    <script>
+      // index.js
+    </script>
+  </body>
+</html>
