@@ -44,7 +44,6 @@ $card-height: px-to-em(516);
     1s filter,
     1s box-shadow,
     1s background-position;
-  will-change: transform;
   contain: strict;
   box-shadow: 0 0 1em rgba(#000, 0.5);
   border-radius: $border-radius;
@@ -145,7 +144,6 @@ $card-height: px-to-em(516);
   opacity: var(--o);
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   mix-blend-mode: color-dodge;
-  will-change: opacity;
   inset: 0;
   border-radius: $border-radius;
   pointer-events: none;
