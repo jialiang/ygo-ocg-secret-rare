@@ -5,8 +5,6 @@
 
 "%~dp0cwebp.exe" -m 6 -pass 10 -mt -sharp_yuv -lossless artwork.png -o artwork.webp
 "%~dp0cwebp.exe" -m 6 -pass 10 -mt -sharp_yuv -lossless stock.png -o stock.webp
-"%~dp0cwebp.exe" -m 6 -pass 10 -mt -sharp_yuv -q 80 particles.png -o particles.webp
 
 "%~dp0avifenc.exe" -s 0 --min 0 --max 63 -a end-usage=q -a cq-level=16 -a tune=ssim -a color:enable-chroma-deltaq=1 -a color:enable-qm=1 -a color:deltaq-mode=3 -a tune=ssim artwork.png artwork.avif
 "%~dp0avifenc.exe" -s 0 --min 0 --max 63 -a end-usage=q -a cq-level=16 -a tune=ssim -a color:enable-chroma-deltaq=1 -a color:enable-qm=1 -a color:deltaq-mode=3 stock.png stock.avif
-"%~dp0avifenc.exe" -s 0 --min 0 --max 63 -a end-usage=q -a cq-level=16 -a tune=ssim -a color:enable-chroma-deltaq=1 -a color:enable-qm=1 -a color:deltaq-mode=3 particles.png particles.avif

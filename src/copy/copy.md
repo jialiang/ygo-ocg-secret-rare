@@ -42,7 +42,7 @@ The Japanese texts were meant to be actual text instead of SVG images. Because b
 
 For raster images, the WEBP and AVIF formats are used. To balance file size and quality, an SSIM score above 0.99 is targeted.
 
-The [Official Proxy](./images/linked/official%20proxy.png) from the [Infinity Chasers announcement page](https://yu-gi-oh.jp/news_detail.php?page=details&&id=497) is used as reference. The design of this webpage is based on the [Madame Verre 9/17 Cute Day Promotional Image](./images/linked/cute%20day.png).
+The [Official Proxy](./images/linked/official%20proxy.png) from the [Infinity Chasers announcement page](https://yu-gi-oh.jp/news_detail.php?page=details&&id=497) is used as reference. For fans, I also found an official [Madame Verre 9/17 Cute Day Promotional Image](./images/linked/cute%20day.png).
 
 ## Accessibility
 
