@@ -50,7 +50,6 @@ $card-height: px-to-em(516);
   border-radius: $border-radius;
   width: 100%;
   height: 100%;
-  overflow: hidden;
 
   --x: 1px;
   --y: 1px;
@@ -142,7 +141,7 @@ $card-height: px-to-em(516);
   position: absolute;
   opacity: var(--o);
   mix-blend-mode: color-dodge;
-  inset: 0;
+  inset: 1px;
   border-radius: $border-radius;
   pointer-events: none;
 
@@ -156,9 +155,9 @@ $card-height: px-to-em(516);
     linear-gradient(90deg, $null 50%, #fff 59%, #fff 61%, $null 70%) $grid-x1 0 / 7.6em 100%,
     linear-gradient(90deg, $null 55%, #fff, $null 65%) $grid-x2 0 / 7.5em 100%;
 
-  $glitter: url("./images/glitter.png") 0 0 / 100% 100%;
+  $glitter: url("./images/glitter.png") -1px -1px / #{$card-width} #{$card-height};
 
-  $area: url("./images/holofoil-mask.svg") 0 0 / 100% 100%;
+  $area: url("./images/holofoil-mask.svg") -1px -1px / #{$card-width} #{$card-height};
 
   $texture:
     linear-gradient($null, rgba(#000, 0.75), $null) 0 0 / 100% 3px,
