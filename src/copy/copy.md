@@ -22,6 +22,12 @@ In the Holographic Foil layer, a rainbow linear gradient blends with a black-whi
 
 This output is then blended with the content below using the Color Dodge blend mode. Color Dodge works like a highlighter. It brightens the bottom layer based on the top layer's values. If the top layer is black, the bottom layer stays the same.
 
+## Name and Hologram Layer
+
+The shininess of the Name and Hologram is created by applying a CSS mask on an element containing a white-to-transparent radial gradient.
+
+## Challenges
+
 On Safari 18.2 and earlier, 2 bugs were encountered:
 
 1. Blending with Color fails between elements on different composition layers. Since CSS transform promotes elements to their own composition layer, CPU-heavy background position changes were used for animations instead. [Bug report on Webkit Bugzilla](https://bugs.webkit.org/show_bug.cgi?id=196303).
@@ -32,13 +38,9 @@ On the latest version of Firefox, 2 different bugs were encountered:
 1. On Intel GPUs, blending with Color Dodge wrongly outputs a dark color when the top layer is white and has a specific opacity. In my case, the issue occurs only at 90% opacity, sidestepping this value avoids the issue. [Bug report on Mozilla Bugzilla](https://bugzilla.mozilla.org/show_bug.cgi?id=1591918).
 2. Perspective transformed elements can appear blurry from being rendered at an incorrectly low internal resolution. To fix this, the card was made 25% larger and scaled back to the intended size using CSS transform. [Bug report on Mozilla Bugzilla](https://bugzilla.mozilla.org/show_bug.cgi?id=1806281).
 
-## Name and Hologram Layer
-
-The shininess of the Name and Hologram is created by applying a CSS mask on an element containing a white-to-transparent radial gradient.
+The Japanese texts were meant to be actual text instead of SVG images. Because browsers avoid blurring text for legibility, the small font sizes made them harsh and overly bold: [Comparison of 9px text (top) vs image (bottom)](./images/linked/text%20vs%20image%20rendering.png). Also, Chrome 117 and earlier have a 10px minimum font size default for Japanese. The card would need to be huge to accommodate such a minimum.
 
 ## Other Implementation Details
-
-The Japanese texts were meant to be actual text instead of SVG images. Because browsers avoid blurring text for legibility, the small font sizes made them harsh and overly bold: [Comparison of 9px text (top) vs image (bottom)](./images/linked/text%20vs%20image%20rendering.png). Also, Chrome 117 and earlier have a 10px minimum font size default for Japanese. The card would need to be huge to accommodate such a minimum.
 
 For raster images, the WEBP and AVIF formats are used. To balance file size and quality, an SSIM score above 0.99 is targeted.
 
