@@ -11,7 +11,7 @@ export default {
     "at-rule-empty-line-before": null,
     "color-function-notation": null,
     "media-feature-range-notation": ["prefix"],
-    "no-descending-specificity": [true, { severity: "warning" }],
+    "no-descending-specificity": null,
     "scss/dollar-variable-empty-line-before": null,
     "scss/operator-no-newline-after": null,
     "plugin/no-unsupported-browser-features": [
