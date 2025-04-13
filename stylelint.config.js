@@ -17,7 +17,7 @@ export default {
     "plugin/no-unsupported-browser-features": [
       true,
       {
-        ignore: ["css-nesting"],
+        ignore: ["css-nesting", "css-masks", "css-mixblendmode", "text-decoration"],
         severity: "warning",
       },
     ],
