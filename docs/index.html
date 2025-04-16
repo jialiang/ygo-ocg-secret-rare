@@ -4,7 +4,7 @@
 <p>Remembering Simon Goellner&#39;s amazing <a href="https://poke-holo.simey.me/">Pokémon Cards Holographic Effect in CSS</a> from 2022, I decided to explore and apply his technique.</p>
 <p>If you have any suggestions for improvements, do leave a comment on the <a href="https://github.com/jialiang/ygo-ocg-secret-rare">Github Repo</a>.</p>
 <h2 id="spotlight-layer">Spotlight Layer</h2>
-<p>The Spotlight layer features a dark noise texture over a white-to-transparent radial gradient. It blends with the content below using the Plus-Lighter blend mode. Plus-Lighter sums the pixel values of the top and bottom layers.</p>
+<p>The Spotlight layer features a white-to-transparent radial gradient. It blends with the content below using the Plus-Lighter blend mode. Plus-Lighter sums the pixel values of the top and bottom layers.</p>
 <p>This <a href="https://www.desmos.com/calculator/g8wmd3dsak">Plus-Lighter vs Color Dodge vs Screen Output Comparison Graph</a> compares Plus-Lighter with other similar blend modes.</p>
 <p>Plus-Lighter can simulate a bright light even at low strength, which preserves contrast and thereby details. It does so by enforcing a value floor and allowing overexposure. The former delineates the light spot and the latter conveys brightness.</p>
 <h2 id="holographic-foil-layer">Holographic Foil Layer</h2>
@@ -25,7 +25,7 @@
 </ol>
 <p>The Japanese texts were meant to be actual text instead of SVG images. Because browsers avoid blurring text for legibility, the small font sizes made them harsh and overly bold: <a href="./images/linked/text%20vs%20image%20rendering.png">Comparison of 9px text (top) vs image (bottom)</a>. Also, Chrome 117 and earlier have a 10px minimum font size default for Japanese. The card would need to be huge to accommodate such a minimum.</p>
 <h2 id="other-implementation-details">Other Implementation Details</h2>
-<p>For raster images, the WEBP and AVIF formats are used. To balance file size and quality, an SSIM score above 0.99 is targeted.</p>
+<p>For raster images, the WEBP and AVIF formats are used. To balance file size and quality, an SSIMULACRA 2 score above 90 is maintained to ensure images are visually lossless.</p>
 <p>The <a href="./images/linked/official%20proxy.png">Official Proxy</a> from the <a href="https://yu-gi-oh.jp/news_detail.php?page=details&&id=497">Infinity Chasers announcement page</a> is used as reference. For fans, I also found an official <a href="./images/linked/cute%20day.png">Madame Verre 9/17 Cute Day Promotional Image</a>.</p>
 <h2 id="accessibility">Accessibility</h2>
 <p>I&#39;ve tested this webpage with NVDA (Non-Visual Desktop Access) and found all text and key elements to make sense to non-screen users.</p>

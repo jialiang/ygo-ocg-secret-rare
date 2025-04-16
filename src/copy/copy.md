@@ -10,7 +10,7 @@ If you have any suggestions for improvements, do leave a comment on the [Github 
 
 ## Spotlight Layer
 
-The Spotlight layer features a dark noise texture over a white-to-transparent radial gradient. It blends with the content below using the Plus-Lighter blend mode. Plus-Lighter sums the pixel values of the top and bottom layers.
+The Spotlight layer features a white-to-transparent radial gradient. It blends with the content below using the Plus-Lighter blend mode. Plus-Lighter sums the pixel values of the top and bottom layers.
 
 This [Plus-Lighter vs Color Dodge vs Screen Output Comparison Graph](https://www.desmos.com/calculator/g8wmd3dsak) compares Plus-Lighter with other similar blend modes.
 
@@ -42,7 +42,7 @@ The Japanese texts were meant to be actual text instead of SVG images. Because b
 
 ## Other Implementation Details
 
-For raster images, the WEBP and AVIF formats are used. To balance file size and quality, an SSIM score above 0.99 is targeted.
+For raster images, the WEBP and AVIF formats are used. To balance file size and quality, an SSIMULACRA 2 score above 90 is maintained to ensure images are visually lossless.
 
 The [Official Proxy](./images/linked/official%20proxy.png) from the [Infinity Chasers announcement page](https://yu-gi-oh.jp/news_detail.php?page=details&&id=497) is used as reference. For fans, I also found an official [Madame Verre 9/17 Cute Day Promotional Image](./images/linked/cute%20day.png).
 
