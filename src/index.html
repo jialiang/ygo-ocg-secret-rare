@@ -12,6 +12,10 @@
     <link rel="icon" type="image/x-icon" href="https://jialiang.github.io/favicon.png" />
     <link rel="canonical" href="https://jialiang.github.io/ygo-ocg-secret-rare/" />
 
+    <link rel="preload" href="./images/optimized/stock.avif" as="image" type="image/avif" />
+    <link rel="preload" href="./images/optimized/artwork.avif" as="image" type="image/avif" />
+    <link rel="preload" href="./images/description.svg" as="image" type="image/svg+xml" />
+
     <meta property="og:title" content="Yu-Gi-Oh! OCG Secret Rare Effect with CSS" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://jialiang.github.io/ygo-ocg-secret-rare/" />
@@ -43,12 +47,7 @@
           <picture>
             <source srcset="./images/optimized/stock.avif" type="image/avif" />
             <source srcset="./images/optimized/stock.webp" type="image/webp" />
-            <img
-              class="stock dim"
-              src="./images/optimized/stock.png"
-              alt=""
-              loading="eager"
-              fetchpriority="high" />
+            <img class="stock dim" src="./images/optimized/stock.png" alt="" />
           </picture>
 
           <div class="name dim-more notranslate" translate="no">
@@ -92,9 +91,7 @@
               <source srcset="./images/optimized/artwork.webp" type="image/webp" />
               <img
                 src="./images/optimized/artwork.png"
-                alt="カードアートワーク：毛皮をアクセントにした白いドレスを着た青ピンクのロングヘアの自信に満ちた少女が、魔法の杖を持ち、クリスタルの玉座に座っている。"
-                loading="eager"
-                fetchpriority="high" />
+                alt="カードアートワーク：毛皮をアクセントにした白いドレスを着た青ピンクのロングヘアの自信に満ちた少女が、魔法の杖を持ち、クリスタルの玉座に座っている。" />
             </picture>
           </div>
 
@@ -114,8 +111,7 @@
           <div class="description">
             <img
               src="./images/description.svg"
-              alt="【魔法使い族／効果】このカード名の①②の効果はそれぞれ１ターンに１度しか使用できない。①：自分の魔法使い族モンスターが相手モンスターと戦闘を行うダメージ計算時に発動できる。カード名が異なる手札の魔法カードを任意の数だけ相手に見せ、その自分のモンスターの攻撃力・守備力をターン終了時まで、見せた数×１０００アップする。②：自分・相手ターンに、手札から魔法カード１枚を捨てて発動できる。相手フィールドの全ての表側表示モンスターの効果をターン終了時まで無効にする。"
-              fetchpriority="low" />
+              alt="【魔法使い族／効果】このカード名の①②の効果はそれぞれ１ターンに１度しか使用できない。①：自分の魔法使い族モンスターが相手モンスターと戦闘を行うダメージ計算時に発動できる。カード名が異なる手札の魔法カードを任意の数だけ相手に見せ、その自分のモンスターの攻撃力・守備力をターン終了時まで、見せた数×１０００アップする。②：自分・相手ターンに、手札から魔法カード１枚を捨てて発動できる。相手フィールドの全ての表側表示モンスターの効果をターン終了時まで無効にする。" />
           </div>
 
           <div class="atk-def">
