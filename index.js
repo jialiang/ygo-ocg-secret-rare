@@ -8,6 +8,23 @@ import * as sass from "sass-embedded";
 import copy from "./src/copy/index.js";
 import fonts from "./src/fonts/index.js";
 
+const DOCS_EXCLUDE = [
+  /\.exe$/i,
+  /(^|\/)generate\.bat$/i,
+  "images/source",
+  "images/artwork-mask.png",
+  "images/stock.png",
+  "images/stock.old.png",
+  "images/noise.png",
+];
+
+const isExcludedFromDocs = (relativePath) =>
+  DOCS_EXCLUDE.some((rule) =>
+    rule instanceof RegExp
+      ? rule.test(relativePath)
+      : relativePath === rule || relativePath.startsWith(`${rule}/`),
+  );
+
 const clean = async () => {
   await fs.mkdir("./docs", { recursive: true });
 
@@ -20,7 +37,7 @@ const clean = async () => {
   await Promise.all(promises);
 };
 
-async function clone(src, dest) {
+async function clone(src, dest, base = src) {
   const [files] = await Promise.all([
     fs.readdir(src, { withFileTypes: true }),
     fs.mkdir(dest, { recursive: true }),
@@ -31,7 +48,10 @@ async function clone(src, dest) {
       const _src = path.join(src, file.name);
       const _dest = path.join(dest, file.name);
 
-      if (file.isDirectory()) await clone(_src, _dest);
+      const rel = path.relative(base, _src).split(path.sep).join("/");
+      if (isExcludedFromDocs(rel)) return;
+
+      if (file.isDirectory()) await clone(_src, _dest, base);
       else await fs.copyFile(_src, _dest);
     }),
   );
