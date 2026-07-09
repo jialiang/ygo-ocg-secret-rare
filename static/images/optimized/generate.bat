@@ -5,5 +5,5 @@
 "%~dp0cwebp.exe" -q 98 -m 6 -pass 10 -mt -sharp_yuv artwork.png -o artwork.webp
 "%~dp0cwebp.exe" -q 97 -m 6 -pass 10 -mt -sharp_yuv stock.png -o stock.webp
 
-"%~dp0avifenc.exe" -q 77 -s 0 --sharpyuv artwork.png artwork.avif
-"%~dp0avifenc.exe" -q 82 -s 0 --sharpyuv artwork.png artwork.avif
+"%~dp0avifenc.exe" -q 86 -s 0 --sharpyuv artwork.png artwork.avif
+"%~dp0avifenc.exe" -q 86 -s 0 --sharpyuv stock.png stock.avif
