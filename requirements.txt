@@ -1,4 +1,4 @@
-Brotli==1.1.0
-fonttools==4.56.1
-uharfbuzz=0.46.0
-zopfli==0.2.3.post1
+Brotli==1.2.0
+fonttools==4.63.0
+uharfbuzz==0.55.0
+zopfli==0.4.3
