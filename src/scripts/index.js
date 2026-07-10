@@ -1,12 +1,7 @@
 const card = document.querySelector(".card");
 const touchpad = document.querySelector(".touchpad");
 
-let rect, width, height, centerX, centerY, dxyMax;
-
 let rotStepsLeft, lastRotTime, currentRotX, currentRotY, finalRotX, finalRotY;
-
-let updateRectTimer = null;
-let rectChanged = true;
 
 let lastStart = 0;
 let lastEnd = 0;
@@ -23,41 +18,6 @@ const raf = (key, callback) => {
   if (callback) lastRafId[key] = requestAnimationFrame(callback);
 };
 
-const updateRect = () => {
-  clearTimeout(updateRectTimer);
-
-  if (!rectChanged) return;
-
-  rectChanged = false;
-  rect = touchpad.getBoundingClientRect();
-
-  width = rect.width;
-  height = rect.height;
-
-  centerX = width / 2;
-  centerY = height / 2;
-
-  dxyMax = Math.hypot(centerX, centerY);
-};
-
-requestAnimationFrame(() => {
-  requestAnimationFrame(updateRect);
-});
-
-window.addEventListener("resize", () => {
-  rectChanged = true;
-  clearTimeout(updateRectTimer);
-  updateRectTimer = setTimeout(updateRect, 300);
-});
-
-window.addEventListener("scroll", () => {
-  if (window.scrollY - window.innerHeight * 2 > 0) return;
-
-  rectChanged = true;
-  clearTimeout(updateRectTimer);
-  updateRectTimer = setTimeout(updateRect, 300);
-});
-
 const resetRot = () => {
   rotStepsLeft = 300;
   lastRotTime = 0;
@@ -71,44 +31,54 @@ const resetRot = () => {
 
 resetRot();
 
-const rot = (now) => {
-  if (lastEnd >= lastStart) return;
-
-  if (rotStepsLeft > 0) {
-    if (lastRotTime === 0) lastRotTime = now;
-
-    const elapsed = now - lastRotTime;
-
-    if (elapsed <= 4) return raf("rot", rot);
-
-    const dRotX = (finalRotX - currentRotX) * Math.min(1, elapsed / rotStepsLeft);
-    const dRotY = (finalRotY - currentRotY) * Math.min(1, elapsed / rotStepsLeft);
-
-    currentRotX += dRotX;
-    currentRotY += dRotY;
-    rotStepsLeft -= elapsed;
-    lastRotTime = now;
-
-    raf("rot", rot);
-  } else {
-    currentRotX = finalRotX;
-    currentRotY = finalRotY;
-  }
-
+const applyRot = () => {
   card.style.setProperty("--rot-x", `${currentRotX.toFixed(2)}deg`);
   card.style.setProperty("--rot-y", `${currentRotY.toFixed(2)}deg`);
+};
+
+const rot = (now) => {
+  if (lastEnd > lastStart) return;
+
+  if (rotStepsLeft <= 0) {
+    currentRotX = finalRotX;
+    currentRotY = finalRotY;
+
+    applyRot();
+    return;
+  }
+
+  if (lastRotTime === 0) lastRotTime = now;
+
+  const elapsed = now - lastRotTime;
+
+  if (elapsed <= 4) return raf("rot", rot);
+
+  const dRotX = (finalRotX - currentRotX) * Math.min(1, elapsed / rotStepsLeft);
+  const dRotY = (finalRotY - currentRotY) * Math.min(1, elapsed / rotStepsLeft);
+
+  currentRotX += dRotX;
+  currentRotY += dRotY;
+  rotStepsLeft -= elapsed;
+  lastRotTime = now;
+
+  raf("rot", rot);
+  applyRot();
 };
 
 const move = (e) => {
   e.preventDefault();
 
-  raf("move");
+  if (lastEnd >= lastStart) lastStart = performance.now();
+
   raf("rot");
 
   raf("move", (now) => {
     if (lastEnd >= lastStart) return;
 
-    updateRect();
+    const rect = touchpad.getBoundingClientRect();
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const dxyMax = Math.hypot(centerX, centerY);
 
     let rawX, rawY;
 
@@ -154,6 +124,8 @@ const end = () => {
   lastEnd = performance.now();
 
   raf("end", () => {
+    if (lastStart > lastEnd) return;
+
     card.classList.remove("mouseover");
     card.style.cssText = "";
 

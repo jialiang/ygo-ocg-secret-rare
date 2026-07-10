@@ -1,4 +1,4 @@
-import fs from "fs";
+import { readFile } from "fs/promises";
 
 import { marked } from "marked";
 import { gfmHeadingId, getHeadingList } from "marked-gfm-heading-id";
@@ -6,29 +6,17 @@ import { gfmHeadingId, getHeadingList } from "marked-gfm-heading-id";
 marked.use(gfmHeadingId(), {
   hooks: {
     postprocess(html) {
-      const headings = getHeadingList();
+      const headings = getHeadingList().filter(({ level }) => level === 2);
 
       if (headings.length === 0) return html;
 
-      let currentLevel = -1;
-      let tableOfContents = "";
-
-      headings.map(({ id, raw, level }) => {
-        if (level === 1) return;
-
-        if (level > currentLevel) tableOfContents += "<ol>";
-        if (level < currentLevel) tableOfContents += "</ol>";
-
-        currentLevel = level;
-
-        tableOfContents += `<li><a href="#${id}" class="h${level}">${raw}</a></li>`;
-      });
-
-      tableOfContents += "</ol>".repeat(headings.at(-1).level - 1);
+      const items = headings
+        .map(({ id, raw }) => `<li><a href="#${id}" class="h2">${raw}</a></li>`)
+        .join("");
 
       return html.replace(
         "</h1>",
-        `</h1> <nav aria-label="Table of Contents">${tableOfContents}</nav>`,
+        `</h1> <nav aria-label="Table of Contents"><ol>${items}</ol></nav>`,
       );
     },
   },
@@ -36,12 +24,7 @@ marked.use(gfmHeadingId(), {
 
 export default {
   createHtml: async () => {
-    const input = await new Promise((resolve, reject) => {
-      fs.readFile("./src/copy/copy.md", "utf-8", (error, data) => {
-        if (error) reject(error);
-        else resolve(data);
-      });
-    });
+    const input = await readFile("./src/copy/copy.md", "utf-8");
 
     return `<div>${marked.parse(input)}</div>`;
   },
