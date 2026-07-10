@@ -40,10 +40,11 @@
 </div></article><script>const card = document.querySelector(".card");
 const touchpad = document.querySelector(".touchpad");
 
+touchpad.style.touchAction = "none";
+
 let rotStepsLeft, lastRotTime, currentRotX, currentRotY, finalRotX, finalRotY;
 
-let lastStart = 0;
-let lastEnd = 0;
+let active = false;
 
 const lastRafId = {
   rot: 0,
@@ -76,7 +77,7 @@ const applyRot = () => {
 };
 
 const rot = (now) => {
-  if (lastEnd > lastStart) return;
+  if (!active) return;
 
   if (rotStepsLeft <= 0) {
     currentRotX = finalRotX;
@@ -105,38 +106,24 @@ const rot = (now) => {
 };
 
 const move = (e) => {
-  e.preventDefault();
-
-  if (lastEnd >= lastStart) lastStart = performance.now();
+  if (!active) return;
 
   raf("rot");
 
   raf("move", (now) => {
-    if (lastEnd >= lastStart) return;
+    if (!active) return;
 
     const rect = touchpad.getBoundingClientRect();
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
     const dxyMax = Math.hypot(centerX, centerY);
 
-    let rawX, rawY;
-
-    if (e.type === "mousemove") {
-      rawX = e.clientX;
-      rawY = e.clientY;
+    if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) {
+      return end();
     }
 
-    if (e.type === "touchmove") {
-      rawX = e.touches[0].clientX;
-      rawY = e.touches[0].clientY;
-
-      if (rawX < rect.left || rawX > rect.right || rawY < rect.top || rawY > rect.bottom) {
-        return end();
-      }
-    }
-
-    const x = Math.round(rawX - rect.left - centerX);
-    const y = Math.round(rawY - rect.top - centerY);
+    const x = Math.round(e.clientX - rect.left - centerX);
+    const y = Math.round(e.clientY - rect.top - centerY);
 
     let o = Math.round((1.825 - Math.hypot(x, y) / dxyMax) * 100) / 100;
 
@@ -155,16 +142,21 @@ const move = (e) => {
   });
 };
 
-const start = () => {
-  lastStart = performance.now();
+const start = (e) => {
+  active = true;
+
+  move(e);
 };
 
 const end = () => {
-  lastEnd = performance.now();
+  if (!active) return;
+
+  active = false;
+
+  raf("move");
+  raf("rot");
 
   raf("end", () => {
-    if (lastStart > lastEnd) return;
-
     card.classList.remove("mouseover");
     card.style.cssText = "";
 
@@ -172,12 +164,7 @@ const end = () => {
   });
 };
 
-touchpad.addEventListener("mouseenter", start, { passive: true });
-touchpad.addEventListener("touchstart", start, { passive: true });
-
-touchpad.addEventListener("mousemove", move);
-touchpad.addEventListener("touchmove", move);
-
-touchpad.addEventListener("mouseleave", end, { passive: true });
-touchpad.addEventListener("touchend", end, { passive: true });
-touchpad.addEventListener("touchcancel", end, { passive: true });</script></body></html>
+touchpad.addEventListener("pointerenter", start);
+touchpad.addEventListener("pointermove", move);
+touchpad.addEventListener("pointerleave", end);
+touchpad.addEventListener("pointercancel", end);</script></body></html>
