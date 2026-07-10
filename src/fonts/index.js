@@ -24,10 +24,6 @@ const normalizeValue = (value) => {
   return false;
 };
 
-const fontToExtraCharacters = {
-  "Roboto Condensed": "123456",
-};
-
 const subsetFonts = async (htmlStr, cssObj) => {
   const browserCss = `
     html { font-weight: 400; }
@@ -51,24 +47,28 @@ const subsetFonts = async (htmlStr, cssObj) => {
       const normalizedValue = normalizeValue(value);
       if (!normalizedValue) continue;
 
-      selector.split(",").forEach((selector) => {
-        const selectorAst = selectorProcessor.astSync(selector);
+      selector.split(",").forEach((part) => {
+        const selectorAst = selectorProcessor.astSync(part);
         const { a, b, c } = selectorSpecificity(selectorAst);
 
-        const specificityScore = (a * 100 + b * 10 + c) * 10000 + index;
-        const compiledQuery = cssSelect.compile(`${selector}, ${selector} *`);
+        const compiledQuery = cssSelect.compile(`${part}, ${part} *`);
 
         fontWeightSelectors.push({
           prop: prop.split("-")[1],
           value: normalizedValue,
-          specificityScore,
+          a,
+          b,
+          c,
+          index,
           compiledQuery,
         });
       });
     }
   });
 
-  fontWeightSelectors.sort((a, b) => b.specificityScore - a.specificityScore);
+  fontWeightSelectors.sort(
+    (s1, s2) => s2.a - s1.a || s2.b - s1.b || s2.c - s1.c || s2.index - s1.index,
+  );
 
   const dom = await new Promise((resolve, reject) => {
     const domHandler = new DomHandler((error, dom) => {
@@ -111,32 +111,35 @@ const subsetFonts = async (htmlStr, cssObj) => {
   const subsetTasks = [];
 
   Object.entries(fontToCharacters).forEach(([fontName, characters]) => {
-    const extraCharacters = fontToExtraCharacters[fontName] || "";
-    const characterArray = (characters + extraCharacters).split("");
+    const characterArray = characters.split("");
     const uniqueCharactersSet = new Set(characterArray);
-    const textToSubset = Array.from(uniqueCharactersSet).join("");
+    const textToSubset = Array.from(uniqueCharactersSet)
+      .filter((character) => character.charCodeAt(0) >= 0x20)
+      .join("");
 
     const formats = ["woff", "woff2"];
 
     formats.forEach((format) => {
-      const subsetTask = new Promise((resolve) => {
+      const subsetTask = new Promise((resolve, reject) => {
         const childProcess = spawn(
           "pyftsubset",
           [
-            `"./src/fonts/originals/${fontName.replace("-critical", "")}.ttf"`,
-            `--text="${JSON.stringify(textToSubset).slice(1, -1)}"`,
+            `./src/fonts/originals/${fontName}.ttf`,
+            `--text=${textToSubset}`,
             "--no-ignore-missing-unicodes",
-            `--output-file="./docs/fonts/${fontName}.${format}"`,
+            `--output-file=./docs/fonts/${fontName}.${format}`,
             `--flavor=${format}`,
             "--with-zopfli",
             "--harfbuzz-repacker",
           ],
-          { shell: true, stdio: "inherit" },
+          { stdio: "inherit" },
         );
 
+        childProcess.on("error", reject);
+
         childProcess.on("exit", (code) => {
-          console.log(`Subset font ${fontName}.${format} exited with code ${code}.`);
-          resolve();
+          if (code === 0) resolve();
+          else reject(new Error(`pyftsubset failed for ${fontName}.${format} (exit code ${code})`));
         });
       });
 
@@ -144,7 +147,7 @@ const subsetFonts = async (htmlStr, cssObj) => {
     });
   });
 
-  await Promise.allSettled(subsetTasks);
+  await Promise.all(subsetTasks);
 };
 
 export default { subsetFonts };
