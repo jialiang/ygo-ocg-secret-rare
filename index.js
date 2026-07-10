@@ -26,15 +26,8 @@ const isExcludedFromDocs = (relativePath) =>
   );
 
 const clean = async () => {
+  await fs.rm("./docs", { recursive: true, force: true });
   await fs.mkdir("./docs", { recursive: true });
-
-  const files = await fs.readdir("./docs");
-
-  const promises = files.map(async (file) => {
-    await fs.rm(path.join("./docs", file), { recursive: true });
-  });
-
-  await Promise.all(promises);
 };
 
 async function clone(src, dest, base = src) {
@@ -64,8 +57,8 @@ const generateHtml = async (cssObj, jsObj) => {
   ]);
 
   const outputHtml = inputHtml
-    .replace("/* index.scss */", cssObj.index)
-    .replace("// index.js", jsObj.index);
+    .replace("/* index.scss */", () => cssObj.index)
+    .replace("// index.js", () => jsObj.index);
 
   const minifiedHtml = await minify(outputHtml, {
     collapseWhitespace: true,
@@ -73,7 +66,7 @@ const generateHtml = async (cssObj, jsObj) => {
     decodeEntities: true,
   });
 
-  const minifiedHtmlWithCopy = minifiedHtml.replace("<!-- copy.html -->", copyHtml);
+  const minifiedHtmlWithCopy = minifiedHtml.replace("<!-- copy.html -->", () => copyHtml);
 
   await fs.writeFile("./docs/index.html", minifiedHtmlWithCopy);
 
@@ -82,13 +75,12 @@ const generateHtml = async (cssObj, jsObj) => {
 
 const generateCss = async () => {
   const path = "./src/styles/index.scss";
-  const index = await sass.compileAsync(path, { style: "compressed" });
+  const compiled = await sass.compileAsync(path, { style: "compressed" });
 
-  const prefixedCss = await postcss(autoprefixer()).process(index.css, {
-    from: path,
-  });
+  const result = await postcss(autoprefixer()).process(compiled.css, { from: path });
+  result.warnings().forEach((warning) => console.warn(warning.toString()));
 
-  return { index: prefixedCss };
+  return { index: result.css };
 };
 
 const generateJavaScript = async () => {
@@ -117,8 +109,8 @@ const build = async () => {
 
   const main = async () => {
     const [cssObj, jsObj] = await Promise.all([
-      await timeTask(generateCss, 2),
-      await timeTask(generateJavaScript, 2),
+      timeTask(generateCss, 2),
+      timeTask(generateJavaScript, 2),
     ]);
 
     const htmlStr = await timeTask(generateHtml, 1, [cssObj, jsObj]);
@@ -133,4 +125,7 @@ const build = async () => {
   process.stdout.write("\u0007");
 };
 
-build();
+build().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
