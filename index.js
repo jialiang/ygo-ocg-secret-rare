@@ -8,19 +8,29 @@ import * as sass from "sass-embedded";
 import copy from "./src/copy/index.js";
 import fonts from "./src/fonts/index.js";
 
+const DOCS_EXCLUDE = [
+  /\.exe$/i,
+  /(^|\/)generate\.bat$/i,
+  "images/source",
+  "images/artwork-mask.png",
+  "images/stock.png",
+  "images/stock.old.png",
+  "images/noise.png",
+];
+
+const isExcludedFromDocs = (relativePath) =>
+  DOCS_EXCLUDE.some((rule) =>
+    rule instanceof RegExp
+      ? rule.test(relativePath)
+      : relativePath === rule || relativePath.startsWith(`${rule}/`),
+  );
+
 const clean = async () => {
+  await fs.rm("./docs", { recursive: true, force: true });
   await fs.mkdir("./docs", { recursive: true });
-
-  const files = await fs.readdir("./docs");
-
-  const promises = files.map(async (file) => {
-    await fs.rm(path.join("./docs", file), { recursive: true });
-  });
-
-  await Promise.all(promises);
 };
 
-async function clone(src, dest) {
+async function clone(src, dest, base = src) {
   const [files] = await Promise.all([
     fs.readdir(src, { withFileTypes: true }),
     fs.mkdir(dest, { recursive: true }),
@@ -31,7 +41,10 @@ async function clone(src, dest) {
       const _src = path.join(src, file.name);
       const _dest = path.join(dest, file.name);
 
-      if (file.isDirectory()) await clone(_src, _dest);
+      const rel = path.relative(base, _src).split(path.sep).join("/");
+      if (isExcludedFromDocs(rel)) return;
+
+      if (file.isDirectory()) await clone(_src, _dest, base);
       else await fs.copyFile(_src, _dest);
     }),
   );
@@ -44,8 +57,8 @@ const generateHtml = async (cssObj, jsObj) => {
   ]);
 
   const outputHtml = inputHtml
-    .replace("/* index.scss */", cssObj.index)
-    .replace("// index.js", jsObj.index);
+    .replace("/* index.scss */", () => cssObj.index)
+    .replace("// index.js", () => jsObj.index);
 
   const minifiedHtml = await minify(outputHtml, {
     collapseWhitespace: true,
@@ -53,7 +66,7 @@ const generateHtml = async (cssObj, jsObj) => {
     decodeEntities: true,
   });
 
-  const minifiedHtmlWithCopy = minifiedHtml.replace("<!-- copy.html -->", copyHtml);
+  const minifiedHtmlWithCopy = minifiedHtml.replace("<!-- copy.html -->", () => copyHtml);
 
   await fs.writeFile("./docs/index.html", minifiedHtmlWithCopy);
 
@@ -62,13 +75,12 @@ const generateHtml = async (cssObj, jsObj) => {
 
 const generateCss = async () => {
   const path = "./src/styles/index.scss";
-  const index = await sass.compileAsync(path, { style: "compressed" });
+  const compiled = await sass.compileAsync(path, { style: "compressed" });
 
-  const prefixedCss = await postcss(autoprefixer()).process(index.css, {
-    from: path,
-  });
+  const result = await postcss(autoprefixer()).process(compiled.css, { from: path });
+  result.warnings().forEach((warning) => console.warn(warning.toString()));
 
-  return { index: prefixedCss };
+  return { index: result.css };
 };
 
 const generateJavaScript = async () => {
@@ -97,8 +109,8 @@ const build = async () => {
 
   const main = async () => {
     const [cssObj, jsObj] = await Promise.all([
-      await timeTask(generateCss, 2),
-      await timeTask(generateJavaScript, 2),
+      timeTask(generateCss, 2),
+      timeTask(generateJavaScript, 2),
     ]);
 
     const htmlStr = await timeTask(generateHtml, 1, [cssObj, jsObj]);
@@ -113,4 +125,7 @@ const build = async () => {
   process.stdout.write("\u0007");
 };
 
-build();
+build().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});

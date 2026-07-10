@@ -1,15 +1,11 @@
 const card = document.querySelector(".card");
 const touchpad = document.querySelector(".touchpad");
 
-let rect, width, height, centerX, centerY, dxyMax;
+touchpad.style.touchAction = "none";
 
 let rotStepsLeft, lastRotTime, currentRotX, currentRotY, finalRotX, finalRotY;
 
-let updateRectTimer = null;
-let rectChanged = true;
-
-let lastStart = 0;
-let lastEnd = 0;
+let active = false;
 
 const lastRafId = {
   rot: 0,
@@ -22,41 +18,6 @@ const raf = (key, callback) => {
 
   if (callback) lastRafId[key] = requestAnimationFrame(callback);
 };
-
-const updateRect = () => {
-  clearTimeout(updateRectTimer);
-
-  if (!rectChanged) return;
-
-  rectChanged = false;
-  rect = touchpad.getBoundingClientRect();
-
-  width = rect.width;
-  height = rect.height;
-
-  centerX = width / 2;
-  centerY = height / 2;
-
-  dxyMax = Math.hypot(centerX, centerY);
-};
-
-requestAnimationFrame(() => {
-  requestAnimationFrame(updateRect);
-});
-
-window.addEventListener("resize", () => {
-  rectChanged = true;
-  clearTimeout(updateRectTimer);
-  updateRectTimer = setTimeout(updateRect, 300);
-});
-
-window.addEventListener("scroll", () => {
-  if (window.scrollY - window.innerHeight * 2 > 0) return;
-
-  rectChanged = true;
-  clearTimeout(updateRectTimer);
-  updateRectTimer = setTimeout(updateRect, 300);
-});
 
 const resetRot = () => {
   rotStepsLeft = 300;
@@ -71,63 +32,59 @@ const resetRot = () => {
 
 resetRot();
 
-const rot = (now) => {
-  if (lastEnd >= lastStart) return;
-
-  if (rotStepsLeft > 0) {
-    if (lastRotTime === 0) lastRotTime = now;
-
-    const elapsed = now - lastRotTime;
-
-    if (elapsed <= 4) return raf("rot", rot);
-
-    const dRotX = (finalRotX - currentRotX) * Math.min(1, elapsed / rotStepsLeft);
-    const dRotY = (finalRotY - currentRotY) * Math.min(1, elapsed / rotStepsLeft);
-
-    currentRotX += dRotX;
-    currentRotY += dRotY;
-    rotStepsLeft -= elapsed;
-    lastRotTime = now;
-
-    raf("rot", rot);
-  } else {
-    currentRotX = finalRotX;
-    currentRotY = finalRotY;
-  }
-
+const applyRot = () => {
   card.style.setProperty("--rot-x", `${currentRotX.toFixed(2)}deg`);
   card.style.setProperty("--rot-y", `${currentRotY.toFixed(2)}deg`);
 };
 
-const move = (e) => {
-  e.preventDefault();
+const rot = (now) => {
+  if (!active) return;
 
-  raf("move");
+  if (rotStepsLeft <= 0) {
+    currentRotX = finalRotX;
+    currentRotY = finalRotY;
+
+    applyRot();
+    return;
+  }
+
+  if (lastRotTime === 0) lastRotTime = now;
+
+  const elapsed = now - lastRotTime;
+
+  if (elapsed <= 4) return raf("rot", rot);
+
+  const dRotX = (finalRotX - currentRotX) * Math.min(1, elapsed / rotStepsLeft);
+  const dRotY = (finalRotY - currentRotY) * Math.min(1, elapsed / rotStepsLeft);
+
+  currentRotX += dRotX;
+  currentRotY += dRotY;
+  rotStepsLeft -= elapsed;
+  lastRotTime = now;
+
+  raf("rot", rot);
+  applyRot();
+};
+
+const move = (e) => {
+  if (!active) return;
+
   raf("rot");
 
   raf("move", (now) => {
-    if (lastEnd >= lastStart) return;
+    if (!active) return;
 
-    updateRect();
+    const rect = touchpad.getBoundingClientRect();
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const dxyMax = Math.hypot(centerX, centerY);
 
-    let rawX, rawY;
-
-    if (e.type === "mousemove") {
-      rawX = e.clientX;
-      rawY = e.clientY;
+    if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) {
+      return end();
     }
 
-    if (e.type === "touchmove") {
-      rawX = e.touches[0].clientX;
-      rawY = e.touches[0].clientY;
-
-      if (rawX < rect.left || rawX > rect.right || rawY < rect.top || rawY > rect.bottom) {
-        return end();
-      }
-    }
-
-    const x = Math.round(rawX - rect.left - centerX);
-    const y = Math.round(rawY - rect.top - centerY);
+    const x = Math.round(e.clientX - rect.left - centerX);
+    const y = Math.round(e.clientY - rect.top - centerY);
 
     let o = Math.round((1.825 - Math.hypot(x, y) / dxyMax) * 100) / 100;
 
@@ -146,12 +103,19 @@ const move = (e) => {
   });
 };
 
-const start = () => {
-  lastStart = performance.now();
+const start = (e) => {
+  active = true;
+
+  move(e);
 };
 
 const end = () => {
-  lastEnd = performance.now();
+  if (!active) return;
+
+  active = false;
+
+  raf("move");
+  raf("rot");
 
   raf("end", () => {
     card.classList.remove("mouseover");
@@ -161,12 +125,7 @@ const end = () => {
   });
 };
 
-touchpad.addEventListener("mouseenter", start, { passive: true });
-touchpad.addEventListener("touchstart", start, { passive: true });
-
-touchpad.addEventListener("mousemove", move);
-touchpad.addEventListener("touchmove", move);
-
-touchpad.addEventListener("mouseleave", end, { passive: true });
-touchpad.addEventListener("touchend", end, { passive: true });
-touchpad.addEventListener("touchcancel", end, { passive: true });
+touchpad.addEventListener("pointerenter", start);
+touchpad.addEventListener("pointermove", move);
+touchpad.addEventListener("pointerleave", end);
+touchpad.addEventListener("pointercancel", end);
