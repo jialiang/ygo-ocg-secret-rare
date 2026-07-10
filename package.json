@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "watch": "npx nodemon --watch index.js --watch ./src --watch ./static --ext *",
+    "watch": "npx nodemon --watch index.js --watch ./src --watch ./static --ext '*' index.js",
     "serve": "node http-server.js",
     "build": "node index.js",
     "lint": "npx eslint . && npx stylelint **/*.scss --fix && npx prettier . --write"
