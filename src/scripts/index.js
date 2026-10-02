@@ -37,6 +37,15 @@ const applyRot = () => {
   card.style.setProperty("--rot-y", `${currentRotY.toFixed(2)}deg`);
 };
 
+const toDegrees = (radians) => (radians * 180) / Math.PI;
+
+const readRot = () => {
+  const matrix = new DOMMatrix(getComputedStyle(card).transform);
+
+  currentRotX = toDegrees(Math.atan2(matrix.m23, matrix.m22));
+  currentRotY = toDegrees(Math.atan2(matrix.m31, matrix.m11));
+};
+
 const rot = (now) => {
   if (!active) return;
 
@@ -67,21 +76,29 @@ const rot = (now) => {
 };
 
 const move = (e) => {
-  if (!active) return;
-
   raf("rot");
 
   raf("move", (now) => {
-    if (!active) return;
-
     const rect = touchpad.getBoundingClientRect();
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
     const dxyMax = Math.hypot(centerX, centerY);
 
-    if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) {
+    if (
+      e.clientX < rect.left ||
+      e.clientX > rect.right ||
+      e.clientY < rect.top ||
+      e.clientY > rect.bottom
+    ) {
       return end();
     }
+
+    if (!active) {
+      readRot();
+      applyRot();
+    }
+
+    active = true;
 
     const x = Math.round(e.clientX - rect.left - centerX);
     const y = Math.round(e.clientY - rect.top - centerY);
@@ -103,12 +120,6 @@ const move = (e) => {
   });
 };
 
-const start = (e) => {
-  active = true;
-
-  move(e);
-};
-
 const end = () => {
   if (!active) return;
 
@@ -125,7 +136,7 @@ const end = () => {
   });
 };
 
-touchpad.addEventListener("pointerenter", start);
+touchpad.addEventListener("pointerenter", move);
 touchpad.addEventListener("pointermove", move);
 touchpad.addEventListener("pointerleave", end);
 touchpad.addEventListener("pointercancel", end);
