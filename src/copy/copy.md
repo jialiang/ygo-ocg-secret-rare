@@ -40,6 +40,12 @@ On the latest version of Firefox, 2 different bugs were encountered:
 
 The Japanese text was meant to be real text instead of SVG images. Because browsers avoid blurring text for legibility, the small font sizes made it harsh and overly bold: [Comparison of 9px text (top) vs image (bottom)](./images/linked/text%20vs%20image%20rendering.png). Also, Chrome 117 and earlier have a default minimum font size of 10px for Japanese. The card would need to be huge to accommodate such a minimum.
 
+## Artwork
+
+In the past, this project used [Alan's artwork](https://www.deviantart.com/alanmac95/art/Witchcraft-Master-Verre-Full-Artwork-775338144). It has since been changed to an upscaled version of the artwork from the game Yu-Gi-Oh! Master Duel. I upscaled the original 512×512 image to twice its resolution using waifu2x (swin_unet_v3/art).
+
+The new artwork image is overall more faithful, it is more glowy and vibrant compared to Alan's version. Other image models like Nano Banana, Grok Imagine, ChatGPT Images and Qwen Image Edit were also tried but they all fared worse.
+
 ## Other Implementation Details
 
 For raster images, the WebP and AVIF formats are used. To balance file size and quality, an SSIMULACRA 2 score above 90 is maintained to ensure images are visually lossless.
@@ -54,7 +60,7 @@ This webpage should be compatible with major browsers released in the last year 
 
 ## Credits
 
-- The [artwork for the card](https://www.deviantart.com/alanmac95/art/Witchcraft-Master-Verre-Full-Artwork-775338144) was created by Alan.
+- The artwork was taken from Yu-Gi-Oh! Master Duel and upscaled.
 - The card stock was sourced from Alixsep's [Ultimate HQ Yu-Gi-Oh! Series 10 Card Template](https://www.deviantart.com/alixsep/art/Ultimate-HQ-Yu-Gi-Oh-Series-10-Card-Template-845251557).
 - The hologram was taken from Icycatelf's [YGO Series 10 Master PSD](https://www.deviantart.com/icycatelf/art/YGO-Series-10-Master-PSD-676448168).
 - The [attribute icon](https://yugipedia.com/wiki/File:LIGHT.svg) was made by Falzar FZ.
