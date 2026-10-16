@@ -1,5 +1,20 @@
 # Yu-Gi-Oh! OCG Secret Rare Effect with CSS
 
+<figure class="smug-aura">
+  <video
+    src="./videos/smug-aura.mp4"
+    width="956"
+    height="720"
+    controls
+    playsinline
+    preload="metadata"
+  ></video>
+  <figcaption>
+    <q>I do not like this painting, Charlie. Its smug aura mocks me. It's evil, Charlie.</q>
+    <span>— Frank Reynolds, <cite>It's Always Sunny in Philadelphia</cite></span>
+  </figcaption>
+</figure>
+
 ## Background
 
 This project was first published in January 2021. In March 2025, I re-evaluated my past projects and found this one to be the most in need of a revamp.

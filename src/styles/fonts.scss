@@ -19,6 +19,16 @@
 }
 
 @font-face {
+  font-style: italic;
+  font-weight: 400;
+  src:
+    url("./fonts/Roboto Condensed Regular Italic.woff2") format("woff2"),
+    url("./fonts/Roboto Condensed Regular Italic.woff") format("woff");
+  font-family: "Roboto Condensed";
+  font-display: block;
+}
+
+@font-face {
   font-style: normal;
   font-weight: 500;
   src:

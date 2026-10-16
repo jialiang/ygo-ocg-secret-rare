@@ -8,7 +8,9 @@ import { selectorSpecificity } from "@csstools/selector-specificity";
 import { Parser as HtmlParser, DomUtils, DomHandler } from "htmlparser2";
 import * as cssSelect from "css-select";
 
-const normalizeValue = (value) => {
+const normalizeValue = (prop, value) => {
+  if (prop === "font-style") return value === "normal" ? "Normal" : "Italic";
+
   if (value === "700") return "Bold";
   if (value === "600") return "Semibold";
   if (value === "500") return "Medium";
@@ -24,10 +26,15 @@ const normalizeValue = (value) => {
   return false;
 };
 
+const fontToExtraCharacters = {
+  "Roboto Condensed Regular": "“”",
+};
+
 const subsetFonts = async (htmlStr, cssObj) => {
   const browserCss = `
-    html { font-weight: 400; }
+    html { font-weight: 400; font-style: normal; }
     h1, h2, h3, h4, b, strong { font-weight: 700; }
+    address, cite, dfn, em, i, var { font-style: italic; }
   `;
 
   const css = browserCss + Object.values(cssObj).join("\n\n");
@@ -41,10 +48,10 @@ const subsetFonts = async (htmlStr, cssObj) => {
     if (!selector || selector.includes("::")) return;
 
     for (const { prop, value } of nodes) {
-      if (prop !== "font-family" && prop !== "font-weight") continue;
+      if (prop !== "font-family" && prop !== "font-weight" && prop !== "font-style") continue;
       if (value === "inherit") continue;
 
-      const normalizedValue = normalizeValue(value);
+      const normalizedValue = normalizeValue(prop, value);
       if (!normalizedValue) continue;
 
       selector.split(",").forEach((part) => {
@@ -91,15 +98,16 @@ const subsetFonts = async (htmlStr, cssObj) => {
 
       node[prop] = value;
 
-      if (!node.family || !node.weight) continue;
+      if (!node.family || !node.weight || !node.style) continue;
 
-      const { family, weight } = node;
+      const { family, weight, style } = node;
+      const fontName = style === "Italic" ? `${family} ${weight} Italic` : `${family} ${weight}`;
 
       for (const child of node.children) {
         if (child.type !== "text") continue;
 
-        fontToCharacters[`${family} ${weight}`] ??= "";
-        fontToCharacters[`${family} ${weight}`] += child.data;
+        fontToCharacters[fontName] ??= "";
+        fontToCharacters[fontName] += child.data;
       }
 
       break;
@@ -111,7 +119,7 @@ const subsetFonts = async (htmlStr, cssObj) => {
   const subsetTasks = [];
 
   Object.entries(fontToCharacters).forEach(([fontName, characters]) => {
-    const characterArray = characters.split("");
+    const characterArray = (characters + (fontToExtraCharacters[fontName] ?? "")).split("");
     const uniqueCharactersSet = new Set(characterArray);
     const textToSubset = Array.from(uniqueCharactersSet)
       .filter((character) => character.charCodeAt(0) >= 0x20)

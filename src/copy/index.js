@@ -14,10 +14,7 @@ marked.use(gfmHeadingId(), {
         .map(({ id, raw }) => `<li><a href="#${id}" class="h2">${raw}</a></li>`)
         .join("");
 
-      return html.replace(
-        "</h1>",
-        `</h1> <nav aria-label="Table of Contents"><ol>${items}</ol></nav>`,
-      );
+      return html.replace("<h2", `<nav aria-label="Table of Contents"><ol>${items}</ol></nav> <h2`);
     },
   },
 });

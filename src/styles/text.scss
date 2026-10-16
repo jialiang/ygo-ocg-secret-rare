@@ -57,6 +57,30 @@
     font-size: 2rem;
   }
 
+  .smug-aura {
+    margin: 3rem 0 0;
+
+    video {
+      display: block;
+      border-radius: 1rem;
+      background: black;
+      width: 100%;
+      height: auto;
+    }
+
+    figcaption {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    span {
+      display: block;
+      margin-top: 0.5rem;
+      color: #555;
+      font-size: 1rem;
+    }
+  }
+
   p {
     margin: 2rem 0 0;
 
