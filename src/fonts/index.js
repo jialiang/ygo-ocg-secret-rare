@@ -130,7 +130,7 @@ const subsetFonts = async (htmlStr, cssObj) => {
     formats.forEach((format) => {
       const subsetTask = new Promise((resolve, reject) => {
         const childProcess = spawn(
-          "pyftsubset",
+          "./.venv/Scripts/pyftsubset.exe",
           [
             `./src/fonts/originals/${fontName}.ttf`,
             `--text=${textToSubset}`,
