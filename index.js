@@ -9,7 +9,7 @@ import * as sass from "sass-embedded";
 
 import copy from "./src/copy/index.js";
 
-const DOCS_EXCLUDE = [
+const DIST_EXCLUDE = [
   /\.exe$/i,
   /(^|\/)generate\.bat$/i,
   "images/source",
@@ -19,16 +19,16 @@ const DOCS_EXCLUDE = [
   "images/noise.png",
 ];
 
-const isExcludedFromDocs = (relativePath) =>
-  DOCS_EXCLUDE.some((rule) =>
+const isExcludedFromDist = (relativePath) =>
+  DIST_EXCLUDE.some((rule) =>
     rule instanceof RegExp
       ? rule.test(relativePath)
       : relativePath === rule || relativePath.startsWith(`${rule}/`),
   );
 
 const clean = async () => {
-  await fs.rm("./docs", { recursive: true, force: true });
-  await fs.mkdir("./docs", { recursive: true });
+  await fs.rm("./dist", { recursive: true, force: true });
+  await fs.mkdir("./dist", { recursive: true });
 };
 
 async function clone(src, dest, base = src) {
@@ -43,7 +43,7 @@ async function clone(src, dest, base = src) {
       const _dest = path.join(dest, file.name);
 
       const rel = path.relative(base, _src).split(path.sep).join("/");
-      if (isExcludedFromDocs(rel)) return;
+      if (isExcludedFromDist(rel)) return;
 
       if (file.isDirectory()) await clone(_src, _dest, base);
       else await fs.copyFile(_src, _dest);
@@ -69,7 +69,7 @@ const generateHtml = async (cssObj, jsObj) => {
 
   const minifiedHtmlWithCopy = minifiedHtml.replace("<!-- copy.html -->", () => copyHtml);
 
-  await fs.writeFile("./docs/index.html", minifiedHtmlWithCopy);
+  await fs.writeFile("./dist/index.html", minifiedHtmlWithCopy);
 
   return minifiedHtmlWithCopy;
 };
@@ -112,7 +112,7 @@ const generateFonts = async (html, cssObj) => {
     fileName: fontFileName,
     extraCharacters: { "Roboto Condensed Regular": "“”" },
     sourceDirectory: "./src/fonts/originals",
-    outputDirectory: "./docs/fonts",
+    outputDirectory: "./dist/fonts",
   });
 };
 
@@ -143,7 +143,7 @@ const build = async () => {
     await timeTask(generateFonts, 1, [htmlStr, cssObj]);
   };
 
-  await Promise.all([main(), timeTask(clone, 0, ["./static", "./docs"])]);
+  await Promise.all([main(), timeTask(clone, 0, ["./static", "./dist"])]);
 
   console.log(`\nTook ${Math.round(performance.now() - start)}ms to build.\n`);
 

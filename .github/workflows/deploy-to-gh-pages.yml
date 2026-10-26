@@ -1,0 +1,38 @@
+name: deploy to gh-pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v10.3.2
+        with:
+          cache-dependency-glob: package-lock.json
+
+      - name: Install Node.js dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Build webpage
+        run: node index.js
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages

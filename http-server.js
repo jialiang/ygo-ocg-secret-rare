@@ -12,7 +12,7 @@ http
 
     if (pathname === "/") pathname = "/index.html";
 
-    const stream = fs.createReadStream("./docs" + pathname);
+    const stream = fs.createReadStream("./dist" + pathname);
     const chunks = [];
 
     stream.on("error", (error) => {
