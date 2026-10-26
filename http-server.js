@@ -1,8 +1,9 @@
+import fs from "fs";
 import http from "http";
 import url from "url";
-import fs from "fs";
-import mime from "mime";
 import zlib from "zlib";
+
+import mime from "mime";
 
 http
   .createServer((req, res) => {
