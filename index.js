@@ -1,12 +1,13 @@
 import fs from "fs/promises";
 import path from "path";
-import postcss from "postcss";
+
 import autoprefixer from "autoprefixer";
+import { subsetFonts } from "font-subsetter";
 import { minify } from "html-minifier-terser";
+import postcss from "postcss";
 import * as sass from "sass-embedded";
 
 import copy from "./src/copy/index.js";
-import fonts from "./src/fonts/index.js";
 
 const DOCS_EXCLUDE = [
   /\.exe$/i,
@@ -89,7 +90,31 @@ const generateJavaScript = async () => {
   return { index };
 };
 
-const generateFonts = fonts.subsetFonts;
+const fontFamilies = [
+  "Lobster Two",
+  "Roboto Condensed",
+  "Stone Serif",
+  "Yu-Gi-Oh! Matrix Small Caps 2",
+  "Yu-Gi-Oh! DFG Leisho 4",
+  "FOT-Rodin Pro M",
+];
+
+const fontFileName = ({ name, weight, style }) => {
+  const weightName = weight[0].toUpperCase() + weight.slice(1);
+  return style === "italic" ? `${name} ${weightName} Italic` : `${name} ${weightName}`;
+};
+
+const generateFonts = async (html, cssObj) => {
+  await subsetFonts({
+    html,
+    stylesheets: [cssObj.index],
+    families: Object.fromEntries(fontFamilies.map((family) => [family, family])),
+    fileName: fontFileName,
+    extraCharacters: { "Roboto Condensed Regular": "“”" },
+    sourceDirectory: "./src/fonts/originals",
+    outputDirectory: "./docs/fonts",
+  });
+};
 
 const timeTask = async (task, level = 0, args = []) => {
   const start = performance.now();
