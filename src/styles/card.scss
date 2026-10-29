@@ -6,7 +6,7 @@
 }
 
 $null: transparent;
-$text-contain: layout style paint;
+$text-contain: layout paint;
 $border-radius: px-to-em(12);
 $card-width: px-to-em(354);
 $card-height: px-to-em(516);
@@ -261,6 +261,7 @@ $card-height: px-to-em(516);
 }
 
 .diffuse-reflection {
+  mix-blend-mode: screen;
   mix-blend-mode: plus-lighter;
   background: radial-gradient(
       farthest-corner circle at center,
